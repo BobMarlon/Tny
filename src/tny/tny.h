@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define HASNEXTDATA(X) if ((*pos) + X > length) break
-
 typedef enum {
     ORDER_LITTLE_ENDIAN = 0x03020100ul,
     ORDER_BIG_ENDIAN = 0x00010203ul
@@ -106,26 +104,12 @@ size_t Tny_calcSize(Tny *tny);
 size_t Tny_dumps(Tny *tny, void **data);
 
 /*
-	_Tny_dumps:
-	Helper function for Tny_dumps.
-	This function don't need to be called directly.
-*/
-size_t _Tny_dumps(Tny *tny, char *data, size_t pos);
-
-/*
 	Tny_loads:
 	Deserializes a serialized document.
 
 	If the function succeeds the deserialized document is returned otherwise NULL.
 */
 Tny* Tny_loads(void *data, size_t length);
-
-/*
-	_Tny_loads:
-	Helper function for Tny_loads.
-	This function don't need to be called directly.
-*/
-Tny* _Tny_loads(char *data, size_t length, size_t *pos);
 
 /*
 	Tny_swapBytes32:

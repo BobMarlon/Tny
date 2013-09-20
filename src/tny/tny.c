@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define HASNEXTDATA(X) if ((*pos) + X > length) break
+
 Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 {
 	Tny *tny = NULL;
@@ -188,21 +190,6 @@ size_t Tny_calcSize(Tny *tny)
 	return size;
 }
 
-size_t Tny_dumps(Tny *tny, void **data)
-{
-	size_t size = 0;
-
-	*data = NULL;
-	tny = tny->root;
-	size = Tny_calcSize(tny);
-	if (size > 0) {
-		*data = malloc(size);
-		_Tny_dumps(tny, *data, 0);
-	}
-
-	return size;
-}
-
 size_t _Tny_dumps(Tny *tny, char *data, size_t pos)
 {
 	uint32_t size = 0;
@@ -252,11 +239,19 @@ size_t _Tny_dumps(Tny *tny, char *data, size_t pos)
 	return pos;
 }
 
-Tny* Tny_loads(void *data, size_t length)
+size_t Tny_dumps(Tny *tny, void **data)
 {
-	size_t pos = 0;
+	size_t size = 0;
 
-	return _Tny_loads(data, length, &pos);
+	*data = NULL;
+	tny = tny->root;
+	size = Tny_calcSize(tny);
+	if (size > 0) {
+		*data = malloc(size);
+		_Tny_dumps(tny, *data, 0);
+	}
+
+	return size;
 }
 
 Tny* _Tny_loads(char *data, size_t length, size_t *pos)
@@ -347,6 +342,13 @@ Tny* _Tny_loads(char *data, size_t length, size_t *pos)
 	}
 
 	return tny;
+}
+
+Tny* Tny_loads(void *data, size_t length)
+{
+	size_t pos = 0;
+
+	return _Tny_loads(data, length, &pos);
 }
 
 uint32_t* Tny_swapBytes32(uint32_t *dest, uint32_t *src)
