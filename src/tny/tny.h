@@ -80,21 +80,21 @@ void Tny_remove(Tny *tny);
 	Returns the element at position "index".
 	Works in a TNY_ARRAY and a TNY_DICT.
 */
-Tny* Tny_at(Tny* tny, size_t index);
+Tny* Tny_at(const Tny* tny, size_t index);
 
 /*
 	Tny_get:
 	Returns the element with the specified key.
 	Works in a TNY_ARRAY and a TNY_DICT.
 */
-Tny* Tny_get(Tny* tny, char *key);
+Tny* Tny_get(const Tny* tny, const char *key);
 
 /*
 	Tny_calcSize:
 	Validates the document and returns the size needed for serialization.
 	If the validation fails 0 is returned.
 */
-size_t Tny_calcSize(Tny *tny);
+size_t Tny_calcSize(const Tny *tny);
 
 /*
 	Tny_dumps:
@@ -103,7 +103,7 @@ size_t Tny_calcSize(Tny *tny);
 
 	If the function succeeds the size of the serialized document is returned otherwise 0.
 */
-size_t Tny_dumps(Tny *tny, void **data);
+size_t Tny_dumps(const Tny *tny, void **data);
 
 /*
 	Tny_loads:
@@ -119,13 +119,13 @@ Tny* Tny_loads(void *data, size_t length);
 
 	Returns 1 if there are more elements, otherwise 0.
 */
-int Tny_hasNext(Tny *tny);
+int Tny_hasNext(const Tny *tny);
 
 /*
 	Tny_next:
 	Returns the next element, otherwise NULL.
 */
-Tny* Tny_next(Tny *tny);
+Tny* Tny_next(const Tny *tny);
 
 /*
 	Tny_freeContent:
