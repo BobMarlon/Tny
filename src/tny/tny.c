@@ -4,8 +4,12 @@
 
 #define HASNEXTDATA(X) if ((*pos) + X > length) break
 
-static size_t _Tny_dumps(Tny *tny, char *data, size_t pos);
+static size_t _Tny_dumps(const Tny *tny, char *data, size_t pos);
 static Tny* _Tny_loads(char *data, size_t length, size_t *pos);
+static uint32_t* Tny_swapBytes32(uint32_t *dest, const uint32_t *src);
+static uint64_t* Tny_swapBytes64(uint64_t *dest, const uint64_t *src);
+
+union tnyHostOrder tnyHostOrder = { { 0, 1, 2, 3 } };
 
 Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 {
@@ -136,7 +140,7 @@ void Tny_remove(Tny *tny)
 	}
 }
 
-Tny* Tny_at(Tny* tny, size_t index)
+Tny* Tny_at(const Tny* tny, size_t index)
 {
 	Tny *result = NULL;
 	size_t count = 0;
@@ -156,7 +160,7 @@ Tny* Tny_at(Tny* tny, size_t index)
 	return result;
 }
 
-Tny* Tny_get(Tny* tny, char *key)
+Tny* Tny_get(const Tny* tny, const char *key)
 {
 	Tny *result = NULL;
 	size_t len = 0;
@@ -178,13 +182,13 @@ Tny* Tny_get(Tny* tny, char *key)
 	return result;
 }
 
-size_t Tny_calcSize(Tny *tny)
+size_t Tny_calcSize(const Tny *tny)
 {
 	size_t size = 0;
 	size_t tmp = 0;
 	uint64_t counter = 0;
 
-	for (Tny *next = tny; next != NULL; next = next->next) {
+	for (const Tny *next = tny; next != NULL; next = next->next) {
 		if (next == tny) {
 			if (next->type != TNY_ARRAY && next->type != TNY_DICT) {
 				size = 0;
@@ -237,11 +241,11 @@ size_t Tny_calcSize(Tny *tny)
 	return size;
 }
 
-size_t _Tny_dumps(Tny *tny, char *data, size_t pos)
+size_t _Tny_dumps(const Tny *tny, char *data, size_t pos)
 {
 	uint32_t size = 0;
 
-	for (Tny *next = tny; next != NULL; next = next->next) {
+	for (const Tny *next = tny; next != NULL; next = next->next) {
 		// Add the data type
 		data[pos++] = next->type;
 
@@ -286,7 +290,7 @@ size_t _Tny_dumps(Tny *tny, char *data, size_t pos)
 	return pos;
 }
 
-size_t Tny_dumps(Tny *tny, void **data)
+size_t Tny_dumps(const Tny *tny, void **data)
 {
 	size_t size = 0;
 
@@ -402,7 +406,7 @@ Tny* Tny_loads(void *data, size_t length)
 	return _Tny_loads(data, length, &pos);
 }
 
-uint32_t* Tny_swapBytes32(uint32_t *dest, uint32_t *src)
+static uint32_t* Tny_swapBytes32(uint32_t *dest, const uint32_t *src)
 {
 	union {
 		uint32_t num;
@@ -422,7 +426,7 @@ uint32_t* Tny_swapBytes32(uint32_t *dest, uint32_t *src)
 	return dest;
 }
 
-uint64_t* Tny_swapBytes64(uint64_t *dest, uint64_t *src)
+static uint64_t* Tny_swapBytes64(uint64_t *dest, const uint64_t *src)
 {
 	union {
 		uint64_t num;
@@ -444,12 +448,12 @@ uint64_t* Tny_swapBytes64(uint64_t *dest, uint64_t *src)
 	return dest;
 }
 
-int Tny_hasNext(Tny *tny)
+int Tny_hasNext(const Tny *tny)
 {
 	return tny->next != NULL;
 }
 
-Tny* Tny_next(Tny *tny)
+Tny* Tny_next(const Tny *tny)
 {
 	return tny->next;
 }

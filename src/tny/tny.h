@@ -1,7 +1,7 @@
 #ifndef TNY_H_
 #define TNY_H_
 
-#include <stdio.h>
+#include <stddef.h>
 #include <stdint.h>
 
 typedef enum {
@@ -9,10 +9,12 @@ typedef enum {
     ORDER_BIG_ENDIAN = 0x00010203ul
 } TnyEndianness;
 
-static const union {
+union tnyHostOrder {
 	unsigned char bytes[4];
 	uint32_t value;
-} tnyHostOrder = { { 0, 1, 2, 3 } };
+};
+
+extern union tnyHostOrder tnyHostOrder;
 
 #define HOST_ORDER (tnyHostOrder.value)
 
@@ -78,21 +80,21 @@ void Tny_remove(Tny *tny);
 	Returns the element at position "index".
 	Works in a TNY_ARRAY and a TNY_DICT.
 */
-Tny* Tny_at(Tny* tny, size_t index);
+Tny* Tny_at(const Tny* tny, size_t index);
 
 /*
 	Tny_get:
 	Returns the element with the specified key.
 	Works in a TNY_ARRAY and a TNY_DICT.
 */
-Tny* Tny_get(Tny* tny, char *key);
+Tny* Tny_get(const Tny* tny, const char *key);
 
 /*
 	Tny_calcSize:
 	Validates the document and returns the size needed for serialization.
 	If the validation fails 0 is returned.
 */
-size_t Tny_calcSize(Tny *tny);
+size_t Tny_calcSize(const Tny *tny);
 
 /*
 	Tny_dumps:
@@ -101,7 +103,7 @@ size_t Tny_calcSize(Tny *tny);
 
 	If the function succeeds the size of the serialized document is returned otherwise 0.
 */
-size_t Tny_dumps(Tny *tny, void **data);
+size_t Tny_dumps(const Tny *tny, void **data);
 
 /*
 	Tny_loads:
@@ -112,36 +114,18 @@ size_t Tny_dumps(Tny *tny, void **data);
 Tny* Tny_loads(void *data, size_t length);
 
 /*
-	Tny_swapBytes32:
-	Swaps a 32 Bit value to little endian and back to HOST_ORDER if
-	HOST_ORDER is not little endian.
-
-	The function returns "dest"
-*/
-uint32_t* Tny_swapBytes32(uint32_t *dest, uint32_t *src);
-
-/*
-	Tny_swapBytes64:
-	Swaps a 64 Bit value to little endian and back to HOST_ORDER if
-	HOST_ORDER is not little endian.
-
-	The function returns "dest"
-*/
-uint64_t* Tny_swapBytes64(uint64_t *dest, uint64_t *src);
-
-/*
 	Tny_hasNext:
 	Checks if there are more elements to fetch.
 
 	Returns 1 if there are more elements, otherwise 0.
 */
-int Tny_hasNext(Tny *tny);
+int Tny_hasNext(const Tny *tny);
 
 /*
 	Tny_next:
 	Returns the next element, otherwise NULL.
 */
-Tny* Tny_next(Tny *tny);
+Tny* Tny_next(const Tny *tny);
 
 /*
 	Tny_freeContent:
