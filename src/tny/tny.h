@@ -128,12 +128,6 @@ int Tny_hasNext(const Tny *tny);
 Tny* Tny_next(const Tny *tny);
 
 /*
-	Tny_freeContent:
-	Frees the value and the key if existing.
-*/
-void TnyElement_freeContent(Tny *tny);
-
-/*
 	Tny_free:
 	Frees the document.
 */

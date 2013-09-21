@@ -8,6 +8,7 @@ static size_t _Tny_dumps(const Tny *tny, char *data, size_t pos);
 static Tny* _Tny_loads(char *data, size_t length, size_t *pos);
 static uint32_t* Tny_swapBytes32(uint32_t *dest, const uint32_t *src);
 static uint64_t* Tny_swapBytes64(uint64_t *dest, const uint64_t *src);
+static void TnyElement_freeValue(Tny *tny);
 
 union tnyHostOrder tnyHostOrder = { { 0, 1, 2, 3 } };
 
@@ -31,7 +32,7 @@ Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 				} else if (key != NULL && prev != NULL) {
 					tny = Tny_get(prev, key);
 					if (tny != NULL) {
-						TnyElement_freeContent(tny);
+						TnyElement_freeValue(tny);
 						status = CHAIN;
 					}
 				}
@@ -64,7 +65,7 @@ Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 				tny->root = tny;
 			}
 
-			if (key != NULL) {
+			if (key != NULL && tny->key == NULL) {
 				status = SET_KEY;
 			} else {
 				status = SET_VALUE;
@@ -134,7 +135,8 @@ void Tny_remove(Tny *tny)
 			tny->root->size--;
 			tny->prev->next = tny->next;
 			tny->next->prev = tny->prev;
-			TnyElement_freeContent(tny);
+			TnyElement_freeValue(tny);
+			free(tny->key);
 			free(tny);
 		}
 	}
@@ -458,7 +460,7 @@ Tny* Tny_next(const Tny *tny)
 	return tny->next;
 }
 
-void TnyElement_freeContent(Tny *tny)
+void TnyElement_freeValue(Tny *tny)
 {
 	if (tny != NULL) {
 		if (tny->type == TNY_BIN) {
@@ -466,9 +468,7 @@ void TnyElement_freeContent(Tny *tny)
 		} else if (tny->type == TNY_OBJ) {
 			TnyElement_free(tny->value.tny);
 		}
-		free(tny->key);
 		tny->value.ptr = NULL;
-		tny->key = NULL;
 	}
 }
 
@@ -479,7 +479,8 @@ void TnyElement_free(Tny *tny)
 
 	while (next != NULL) {
 		tmp = next->next;
-		TnyElement_freeContent(next);
+		TnyElement_freeValue(next);
+		free(next->key);
 		free(next);
 		next = tmp;
 	}
