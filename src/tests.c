@@ -21,6 +21,8 @@ int printElement(Tny *tny, int level)
 		printf("%ld\n", tny->value.num);
 	} else if (tny->type == TNY_CHAR) {
 		printf("%c\n", tny->value.chr);
+	} else if (tny->type == TNY_DOUBLE) {
+		printf("%g\n", tny->value.flt);
 	} else {
 		return 1;
 	}
@@ -141,15 +143,6 @@ int serialize_deserialize(Tny *tny)
 
 
 	return error;
-}
-
-int check(int cond, char *errorMessage)
-{
-	if (!cond) {
-		printf("%s\n", errorMessage);
-	}
-
-	return cond;
 }
 
 int main(void)

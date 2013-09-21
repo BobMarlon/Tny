@@ -4,27 +4,48 @@
 
 #define HASNEXTDATA(X) if ((*pos) + X > length) break
 
+static size_t _Tny_dumps(Tny *tny, char *data, size_t pos);
+static Tny* _Tny_loads(char *data, size_t length, size_t *pos);
+
 Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 {
 	Tny *tny = NULL;
+	enum {CHECK_PRECONDITIONS, ALLOCATE, CHAIN, SET_KEY, SET_VALUE, FAILED};
+	int status = CHECK_PRECONDITIONS;
+	int loop = 1;
 
-	if ((prev != NULL && type != TNY_ARRAY && type != TNY_DICT) ||
-		(prev == NULL && (type == TNY_ARRAY || type == TNY_DICT))) {
+	while (loop) {
+		switch (status) {
+		case CHECK_PRECONDITIONS:
+			if ((prev != NULL && type != TNY_ARRAY && type != TNY_DICT) ||
+				(prev == NULL && (type == TNY_ARRAY || type == TNY_DICT))) {
 
-		if (prev != NULL && prev->root->type == TNY_DICT && key == NULL) {
-			// Dict must have a key!
-			return NULL;
-		}
-
-		if (key != NULL) {
-			tny = Tny_get(prev, key);
-		}
-
-		if (tny == NULL) {
+				status = ALLOCATE;
+				if (prev != NULL && prev->root->type == TNY_DICT && key == NULL) {
+					// Dict must have a key!
+					status = FAILED;
+				} else if (key != NULL) {
+					tny = Tny_get(prev, key);
+					if (tny != NULL) {
+						Tny_freeContent(tny);
+						status = CHAIN;
+					}
+				}
+			} else {
+				status = FAILED;
+			}
+			break;
+		case ALLOCATE:
 			tny = malloc(sizeof(Tny));
-			memset(tny, 0, sizeof(Tny));
 
-			// Add to doubly-linked list
+			if (tny != NULL) {
+				memset(tny, 0, sizeof(Tny));
+				status = CHAIN;
+			} else {
+				status = FAILED;
+			}
+			break;
+		case CHAIN:
 			if (prev != NULL) {
 				tny->prev = prev;
 				tny->next = prev->next;
@@ -38,36 +59,62 @@ Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 			} else {
 				tny->root = tny;
 			}
-		} else {
-			Tny_freeContent(tny);
-		}
 
-		// Set key if present.
-		if (key != NULL) {
-			tny->key = malloc(strlen(key) + 1);
-			memcpy(tny->key, key, strlen(key) + 1);
-		}
-
-		tny->type = type;
-
-		if (type != TNY_ARRAY && type != TNY_DICT) {
-			// Set size
-			tny->size = size;
-			// Set value
-			if (tny->type == TNY_OBJ) {
-				tny->value.ptr = ((Tny*)value)->root;
-			} else if (tny->type == TNY_BIN) {
-				tny->value.ptr = malloc(size);
-				memcpy(tny->value.ptr, value, size);
-			} else if (tny->type == TNY_CHAR) {
-				tny->value.chr = *((char*)value);
-			} else if (tny->type == TNY_INT32) {
-				tny->value.num = *((uint32_t*)value);
-			} else if (tny->type == TNY_INT64) {
-				tny->value.num = *((uint64_t*)value);
-			} else if (tny->type == TNY_DOUBLE) {
-				tny->value.flt = *((double*)value);
+			if (key != NULL) {
+				status = SET_KEY;
+			} else {
+				status = SET_VALUE;
 			}
+			break;
+		case SET_KEY:
+			tny->key = malloc(strlen(key) + 1);
+
+			if (tny->key != NULL) {
+				memcpy(tny->key, key, strlen(key) + 1);
+				status = SET_VALUE;
+			} else {
+				status = FAILED;
+			}
+			break;
+		case SET_VALUE:
+			tny->type = type;
+
+			if (type != TNY_ARRAY && type != TNY_DICT) {
+				// Set size
+				tny->size = size;
+				// Set value
+				if (tny->type == TNY_OBJ) {
+					tny->value.ptr = ((Tny*)value)->root;
+				} else if (tny->type == TNY_BIN) {
+					tny->value.ptr = malloc(size);
+
+					if (tny->value.ptr != NULL) {
+						memcpy(tny->value.ptr, value, size);
+					} else {
+						status = FAILED;
+						break;
+					}
+				} else if (tny->type == TNY_CHAR) {
+					tny->value.chr = *((char*)value);
+				} else if (tny->type == TNY_INT32) {
+					tny->value.num = *((uint32_t*)value);
+				} else if (tny->type == TNY_INT64) {
+					tny->value.num = *((uint64_t*)value);
+				} else if (tny->type == TNY_DOUBLE) {
+					tny->value.flt = *((double*)value);
+				}
+			}
+			// SUCCESS
+			loop = 0;
+			break;
+		case FAILED:
+			if (tny != NULL) {
+				free(tny->key);
+				free(tny);
+				tny = NULL;
+			}
+			loop = 0;
+			break;
 		}
 	}
 
@@ -248,7 +295,11 @@ size_t Tny_dumps(Tny *tny, void **data)
 	size = Tny_calcSize(tny);
 	if (size > 0) {
 		*data = malloc(size);
-		_Tny_dumps(tny, *data, 0);
+		if (*data != NULL) {
+			_Tny_dumps(tny, *data, 0);
+		} else {
+			size = 0;
+		}
 	}
 
 	return size;
@@ -412,6 +463,8 @@ void Tny_freeContent(Tny *tny)
 			Tny_free(tny->value.tny);
 		}
 		free(tny->key);
+		tny->value.ptr = NULL;
+		tny->key = NULL;
 	}
 }
 
