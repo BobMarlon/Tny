@@ -1,7 +1,7 @@
 #ifndef TNY_H_
 #define TNY_H_
 
-#include <stdio.h>
+#include <stddef.h>
 #include <stdint.h>
 
 typedef enum {
