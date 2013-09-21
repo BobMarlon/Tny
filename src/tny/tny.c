@@ -9,6 +9,8 @@ static Tny* _Tny_loads(char *data, size_t length, size_t *pos);
 static uint32_t* Tny_swapBytes32(uint32_t *dest, uint32_t *src);
 static uint64_t* Tny_swapBytes64(uint64_t *dest, uint64_t *src);
 
+union tnyHostOrder tnyHostOrder = { { 0, 1, 2, 3 } };
+
 Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 {
 	Tny *tny = NULL;

@@ -9,10 +9,12 @@ typedef enum {
     ORDER_BIG_ENDIAN = 0x00010203ul
 } TnyEndianness;
 
-static const union {
+union tnyHostOrder {
 	unsigned char bytes[4];
 	uint32_t value;
-} tnyHostOrder = { { 0, 1, 2, 3 } };
+};
+
+extern union tnyHostOrder tnyHostOrder;
 
 #define HOST_ORDER (tnyHostOrder.value)
 
