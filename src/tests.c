@@ -136,7 +136,7 @@ int serialize_deserialize(Tny *tny)
 					error = 0;
 				}
 			}
-			Tny_free(newObj);
+			TnyElement_free(newObj);
 		}
 		free(dump);
 	}
@@ -174,7 +174,7 @@ int main(void)
 			printf("Test with type %s in an array failed.\n", typesStr[i]);
 			errors++;
 		}
-		Tny_free(root);
+		TnyElement_free(root);
 	}
 
 	// Checking every datatype in a dictionary.
@@ -185,7 +185,7 @@ int main(void)
 			printf("Test with type %s in a dictionary failed.\n", typesStr[i]);
 			errors++;
 		}
-		Tny_free(root);
+		TnyElement_free(root);
 	}
 
 	// Adding every datatype to an array.
@@ -197,7 +197,7 @@ int main(void)
 		printf("Test with all types in an array failed.\n");
 		errors++;
 	}
-	Tny_free(root);
+	TnyElement_free(root);
 
 	// Adding every datatype to a dictionary.
 	root = Tny_add(NULL, TNY_DICT, NULL, NULL, 0);
@@ -208,7 +208,7 @@ int main(void)
 		printf("Test with all types in a dictionary failed.\n");
 		errors++;
 	}
-	Tny_free(root);
+	TnyElement_free(root);
 
 
 	// Adding a dictionary to an array.
@@ -259,7 +259,7 @@ int main(void)
 			errors++;
 		}
 	}
-	Tny_free(root);
+	TnyElement_free(root);
 
 
 	// Testing the iterator functions.
@@ -283,7 +283,7 @@ int main(void)
 		printf("Iterator Test (2) failed!\n");
 		errors++;
 	}
-	Tny_free(root);
+	TnyElement_free(root);
 
 
 	// Loading a corrupted document containing a corrupted size field.
@@ -292,7 +292,7 @@ int main(void)
 		printf("Loading of a corrupted document failed!\n");
 		errors++;
 	}
-	Tny_free(root);
+	TnyElement_free(root);
 
 	printf("Tny tests completed with %u error(s).\n", errors);
 

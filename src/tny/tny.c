@@ -28,10 +28,10 @@ Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 				if (prev != NULL && prev->root->type == TNY_DICT && key == NULL) {
 					// Dict must have a key!
 					status = FAILED;
-				} else if (key != NULL) {
+				} else if (key != NULL && prev != NULL) {
 					tny = Tny_get(prev, key);
 					if (tny != NULL) {
-						Tny_freeContent(tny);
+						TnyElement_freeContent(tny);
 						status = CHAIN;
 					}
 				}
@@ -129,12 +129,12 @@ void Tny_remove(Tny *tny)
 {
 	if (tny != NULL) {
 		if (tny->root == tny) {
-			Tny_free(tny);
+			TnyElement_free(tny);
 		} else {
 			tny->root->size--;
 			tny->prev->next = tny->next;
 			tny->next->prev = tny->prev;
-			Tny_freeContent(tny);
+			TnyElement_freeContent(tny);
 			free(tny);
 		}
 	}
@@ -390,7 +390,7 @@ Tny* _Tny_loads(char *data, size_t length, size_t *pos)
 	}
 
 	if (Tny_calcSize(tny->root) == 0) {
-		Tny_free(tny);
+		TnyElement_free(tny);
 		tny = NULL;
 	} else {
 		tny = tny->root;
@@ -458,13 +458,13 @@ Tny* Tny_next(const Tny *tny)
 	return tny->next;
 }
 
-void Tny_freeContent(Tny *tny)
+void TnyElement_freeContent(Tny *tny)
 {
 	if (tny != NULL) {
 		if (tny->type == TNY_BIN) {
 			free(tny->value.ptr);
 		} else if (tny->type == TNY_OBJ) {
-			Tny_free(tny->value.tny);
+			TnyElement_free(tny->value.tny);
 		}
 		free(tny->key);
 		tny->value.ptr = NULL;
@@ -472,14 +472,14 @@ void Tny_freeContent(Tny *tny)
 	}
 }
 
-void Tny_free(Tny *tny)
+void TnyElement_free(Tny *tny)
 {
 	Tny *tmp = NULL;
 	Tny *next = tny->root;
 
 	while (next != NULL) {
 		tmp = next->next;
-		Tny_freeContent(next);
+		TnyElement_freeContent(next);
 		free(next);
 		next = tmp;
 	}

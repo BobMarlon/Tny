@@ -131,12 +131,12 @@ Tny* Tny_next(const Tny *tny);
 	Tny_freeContent:
 	Frees the value and the key if existing.
 */
-void Tny_freeContent(Tny *tny);
+void TnyElement_freeContent(Tny *tny);
 
 /*
 	Tny_free:
 	Frees the document.
 */
-void Tny_free(Tny *tny);
+void TnyElement_free(Tny *tny);
 
 #endif /* TNY_H_ */
