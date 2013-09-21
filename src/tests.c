@@ -155,7 +155,7 @@ int main(void)
 	uint64_t ui64 = 0xDEADBEEFABAD1DEAlu;
 	char c = 'A';
 	double flt = 13.37f;
-	char *typesStr[] = {"BINARY", "INT23", "INT64", "CHAR", "NULL", "DOUBLE"};
+	char *typesStr[] = {"BINARY", "INT32", "INT64", "CHAR", "NULL", "DOUBLE"};
 	TnyType types[] = {TNY_BIN, TNY_INT32, TNY_INT64, TNY_CHAR, TNY_NULL, TNY_DOUBLE};
 	void *values[] = {message, &ui32, &ui64, &c, NULL, &flt};
 	size_t sizes[] = {strlen(message),0, 0, 0, 0, 0};
