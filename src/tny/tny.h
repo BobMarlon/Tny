@@ -131,6 +131,6 @@ Tny* Tny_next(const Tny *tny);
 	Tny_free:
 	Frees the document.
 */
-void TnyElement_free(Tny *tny);
+void Tny_free(Tny *tny);
 
 #endif /* TNY_H_ */
