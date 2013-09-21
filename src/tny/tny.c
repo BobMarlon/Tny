@@ -6,6 +6,8 @@
 
 static size_t _Tny_dumps(Tny *tny, char *data, size_t pos);
 static Tny* _Tny_loads(char *data, size_t length, size_t *pos);
+static uint32_t* Tny_swapBytes32(uint32_t *dest, uint32_t *src);
+static uint64_t* Tny_swapBytes64(uint64_t *dest, uint64_t *src);
 
 Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 {
@@ -402,7 +404,7 @@ Tny* Tny_loads(void *data, size_t length)
 	return _Tny_loads(data, length, &pos);
 }
 
-uint32_t* Tny_swapBytes32(uint32_t *dest, uint32_t *src)
+static uint32_t* Tny_swapBytes32(uint32_t *dest, uint32_t *src)
 {
 	union {
 		uint32_t num;
@@ -422,7 +424,7 @@ uint32_t* Tny_swapBytes32(uint32_t *dest, uint32_t *src)
 	return dest;
 }
 
-uint64_t* Tny_swapBytes64(uint64_t *dest, uint64_t *src)
+static uint64_t* Tny_swapBytes64(uint64_t *dest, uint64_t *src)
 {
 	union {
 		uint64_t num;

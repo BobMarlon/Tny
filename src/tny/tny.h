@@ -112,24 +112,6 @@ size_t Tny_dumps(Tny *tny, void **data);
 Tny* Tny_loads(void *data, size_t length);
 
 /*
-	Tny_swapBytes32:
-	Swaps a 32 Bit value to little endian and back to HOST_ORDER if
-	HOST_ORDER is not little endian.
-
-	The function returns "dest"
-*/
-uint32_t* Tny_swapBytes32(uint32_t *dest, uint32_t *src);
-
-/*
-	Tny_swapBytes64:
-	Swaps a 64 Bit value to little endian and back to HOST_ORDER if
-	HOST_ORDER is not little endian.
-
-	The function returns "dest"
-*/
-uint64_t* Tny_swapBytes64(uint64_t *dest, uint64_t *src);
-
-/*
 	Tny_hasNext:
 	Checks if there are more elements to fetch.
 
