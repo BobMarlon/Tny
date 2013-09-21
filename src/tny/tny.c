@@ -27,7 +27,7 @@ Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 
 				status = ALLOCATE;
 				if (prev != NULL && prev->root->type == TNY_DICT && key == NULL) {
-					// Dict must have a key!
+					/* Dict must have a key! */
 					status = FAILED;
 				} else if (key != NULL && prev != NULL) {
 					tny = Tny_get(prev, key);
@@ -85,9 +85,9 @@ Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 			tny->type = type;
 
 			if (type != TNY_ARRAY && type != TNY_DICT) {
-				// Set size
+				/* Set size */
 				tny->size = size;
-				// Set value
+				/* Set value */
 				if (tny->type == TNY_OBJ) {
 					tny->value.ptr = ((Tny*)value)->root;
 				} else if (tny->type == TNY_BIN) {
@@ -109,7 +109,7 @@ Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 					tny->value.flt = *((double*)value);
 				}
 			}
-			// SUCCESS
+			/* SUCCESS */
 			loop = 0;
 			break;
 		case FAILED:
@@ -144,10 +144,11 @@ void Tny_remove(Tny *tny)
 
 Tny* Tny_at(const Tny* tny, size_t index)
 {
+	Tny *next = NULL;
 	Tny *result = NULL;
 	size_t count = 0;
 
-	for (Tny *next = tny->root; next != NULL; next = next->next) {
+	for (next = tny->root; next != NULL; next = next->next) {
 		if (next == tny->root) {
 			continue;
 		}
@@ -164,12 +165,13 @@ Tny* Tny_at(const Tny* tny, size_t index)
 
 Tny* Tny_get(const Tny* tny, const char *key)
 {
+	Tny *next = NULL;
 	Tny *result = NULL;
 	size_t len = 0;
 
 	if (key != NULL) {
 		len = strlen(key);
-		for (Tny *next = tny->root; next != NULL; next = next->next) {
+		for (next = tny->root; next != NULL; next = next->next) {
 			if (next == tny->root) {
 				continue;
 			}
@@ -186,26 +188,27 @@ Tny* Tny_get(const Tny* tny, const char *key)
 
 size_t Tny_calcSize(const Tny *tny)
 {
+	const Tny *next = NULL;
 	size_t size = 0;
 	size_t tmp = 0;
 	uint64_t counter = 0;
 
-	for (const Tny *next = tny; next != NULL; next = next->next) {
+	for (next = tny; next != NULL; next = next->next) {
 		if (next == tny) {
 			if (next->type != TNY_ARRAY && next->type != TNY_DICT) {
 				size = 0;
 				break;
 			} else {
-				size += 1 + sizeof(uint32_t); // Object type + tny->size number of elements
+				size += 1 + sizeof(uint32_t); /* Object type + tny->size number of elements */
 				continue;
 			}
 		}
 
-		size += 1; // Value type
+		size += 1; /* Value type */
 
 		if (tny->root->type == TNY_DICT) {
-			size += sizeof(uint32_t); // field where the key length is stored.
-			size += strlen(next->key) + 1; // length of the key + 1
+			size += sizeof(uint32_t); /* field where the key length is stored. */
+			size += strlen(next->key) + 1; /* length of the key + 1 */
 		}
 
 		if (next->type == TNY_OBJ) {
@@ -217,9 +220,9 @@ size_t Tny_calcSize(const Tny *tny)
 				break;
 			}
 		} else if (next->type == TNY_NULL) {
-			size += 0; // No data necessary
+			size += 0; /* No data necessary */
 		} else if (next->type == TNY_BIN) {
-			size += sizeof(uint32_t) + next->size; // tny->size size + value size;
+			size += sizeof(uint32_t) + next->size; /* tny->size size + value size; */
 		} else if (next->type == TNY_CHAR) {
 			size += 1;
 		} else if (next->type == TNY_INT32) {
@@ -245,20 +248,21 @@ size_t Tny_calcSize(const Tny *tny)
 
 size_t _Tny_dumps(const Tny *tny, char *data, size_t pos)
 {
+	const Tny *next = NULL;
 	uint32_t size = 0;
 
-	for (const Tny *next = tny; next != NULL; next = next->next) {
-		// Add the data type
+	for (next = tny; next != NULL; next = next->next) {
+		/* Add the data type */
 		data[pos++] = next->type;
 
-		// Add the number of elements if this is the root element.
+		/* Add the number of elements if this is the root element. */
 		if (next->type == TNY_ARRAY || next->type == TNY_DICT) {
 			Tny_swapBytes32((uint32_t*)(data + pos), &next->size);
 			pos += sizeof(uint32_t);
 			continue;
 		}
 
-		// Add the key if this is a dictionary
+		/* Add the key if this is a dictionary */
 		if (next->root->type == TNY_DICT) {
 			size = strlen(next->key) + 1;
 			Tny_swapBytes32((uint32_t*)(data + pos), &size);
@@ -267,7 +271,7 @@ size_t _Tny_dumps(const Tny *tny, char *data, size_t pos)
 			pos += size;
 		}
 
-		// Add the value
+		/* Add the value */
 		if (next->type == TNY_OBJ) {
 			pos = _Tny_dumps(next->value.tny, data, pos);
 		} else if (next->type == TNY_BIN) {
