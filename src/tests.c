@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include <inttypes.h>
 #include "tny/tny.h"
 
 void printObj(Tny *tny, int level);
@@ -16,9 +17,9 @@ int printElement(Tny *tny, int level)
 	} else if (tny->type == TNY_BIN) {
 		printf("%s\n", (char*)tny->value.ptr);
 	} else if (tny->type == TNY_INT32) {
-		printf("%d\n", (uint32_t)tny->value.num);
+		printf("%"PRIu32"\n", (uint32_t)tny->value.num);
 	} else if (tny->type == TNY_INT64) {
-		printf("%ld\n", tny->value.num);
+		printf("%"PRIu64"\n", tny->value.num);
 	} else if (tny->type == TNY_CHAR) {
 		printf("%c\n", tny->value.chr);
 	} else if (tny->type == TNY_DOUBLE) {
