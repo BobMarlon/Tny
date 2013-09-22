@@ -80,77 +80,77 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <a href="tny_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
-<a name="l00002"></a>00002 <span class="preprocessor">#ifndef TNY_H_</span>
-<a name="l00003"></a>00003 <span class="preprocessor"></span><span class="preprocessor">#define TNY_H_</span>
-<a name="l00004"></a>00004 <span class="preprocessor"></span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;stddef.h&gt;</span>
-<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="keyword">typedef</span> <span class="keyword">enum</span> {
-<a name="l00009"></a>00009     ORDER_LITTLE_ENDIAN = 0x03020100ul,
-<a name="l00010"></a>00010     ORDER_BIG_ENDIAN = 0x00010203ul
-<a name="l00011"></a>00011 } TnyEndianness;
-<a name="l00012"></a>00012 
-<a name="l00013"></a><a class="code" href="uniontnyHostOrder.html">00013</a> <span class="keyword">union </span><a class="code" href="uniontnyHostOrder.html">tnyHostOrder</a> {
-<a name="l00014"></a>00014         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> bytes[4];
-<a name="l00015"></a>00015         uint32_t value;
-<a name="l00016"></a>00016 };
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018 <span class="keyword">extern</span> <span class="keyword">union </span><a class="code" href="uniontnyHostOrder.html">tnyHostOrder</a> <a class="code" href="uniontnyHostOrder.html">tnyHostOrder</a>;
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020 <span class="preprocessor">#define HOST_ORDER (tnyHostOrder.value)</span>
-<a name="l00021"></a>00021 <span class="preprocessor"></span>
-<a name="l00026"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895a">00026</a> <span class="keyword">typedef</span> <span class="keyword">enum</span> {
-<a name="l00027"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa5b762b080dccaffee0b4f990f0652c88">00027</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa5b762b080dccaffee0b4f990f0652c88">TNY_NULL</a>,               
-<a name="l00028"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa1263142a6ef4dfd3d35f3123160ce68a">00028</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa1263142a6ef4dfd3d35f3123160ce68a">TNY_ARRAY</a>,              
-<a name="l00029"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa8e0cc6e1ee1f031ad454e34058f535bc">00029</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa8e0cc6e1ee1f031ad454e34058f535bc">TNY_DICT</a>,               
-<a name="l00030"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aaa018e9896bcdf2071532c5133f1b2b7a">00030</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aaa018e9896bcdf2071532c5133f1b2b7a">TNY_OBJ</a>,                
-<a name="l00031"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa44e70a43a73c8e1a1c2f4f25cc8da3d6">00031</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa44e70a43a73c8e1a1c2f4f25cc8da3d6">TNY_BIN</a>,                
-<a name="l00032"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa327123511414e6def339277bfdb362ff">00032</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa327123511414e6def339277bfdb362ff">TNY_CHAR</a>,               
-<a name="l00033"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa18c333ad1f2b71cf8844a0c8c9c81e69">00033</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa18c333ad1f2b71cf8844a0c8c9c81e69">TNY_INT32</a>,              
-<a name="l00034"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa936e5a634a1da52ee4b64a291d8f16e2">00034</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa936e5a634a1da52ee4b64a291d8f16e2">TNY_INT64</a>,              
-<a name="l00035"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa657c6417523daa2a2ebb578277c19772">00035</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa657c6417523daa2a2ebb578277c19772">TNY_DOUBLE</a>              
-<a name="l00036"></a>00036 } <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895a" title="TnyType contains every supported type.">TnyType</a>;
-<a name="l00037"></a>00037 
-<a name="l00041"></a><a class="code" href="struct__Tny.html">00041</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">_Tny</a> {
-<a name="l00042"></a><a class="code" href="struct__Tny.html#a8d5f8f0948bf771c7cafa595e8573674">00042</a>         <span class="keyword">struct </span><a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">_Tny</a> *<a class="code" href="struct__Tny.html#a8d5f8f0948bf771c7cafa595e8573674">prev</a>;                      
-<a name="l00043"></a><a class="code" href="struct__Tny.html#afc48d7b4e60d6526269070165ec94169">00043</a>         <span class="keyword">struct </span><a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">_Tny</a> *<a class="code" href="struct__Tny.html#afc48d7b4e60d6526269070165ec94169">next</a>;                      
-<a name="l00044"></a><a class="code" href="struct__Tny.html#acb94256d861006db4e789a8a8733a48c">00044</a>         <span class="keyword">struct </span><a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">_Tny</a> *<a class="code" href="struct__Tny.html#acb94256d861006db4e789a8a8733a48c">root</a>;                      
-<a name="l00045"></a><a class="code" href="struct__Tny.html#aecebe7f325021541ee357eb7ca5f2de7">00045</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895a" title="TnyType contains every supported type.">TnyType</a> <a class="code" href="struct__Tny.html#aecebe7f325021541ee357eb7ca5f2de7">type</a>;                           
-<a name="l00047"></a><a class="code" href="struct__Tny.html#ab23a0bb54191a8d5e38c6984da5c4c40">00047</a>         <span class="keywordtype">size_t</span> <a class="code" href="struct__Tny.html#ab23a0bb54191a8d5e38c6984da5c4c40">docSize</a>;                         
-<a name="l00049"></a><a class="code" href="struct__Tny.html#aa8a5f464cc9674c61c82d500772a7b3b">00049</a>         <span class="keywordtype">size_t</span> *<a class="code" href="struct__Tny.html#aa8a5f464cc9674c61c82d500772a7b3b">docSizePtr</a>;                     
-<a name="l00050"></a><a class="code" href="struct__Tny.html#a3e01f2bff5e3d773b3a09d00a229498f">00050</a>         uint32_t <a class="code" href="struct__Tny.html#a3e01f2bff5e3d773b3a09d00a229498f">size</a>;                          
-<a name="l00052"></a><a class="code" href="struct__Tny.html#abaa74403ca9f15a07d3532e116b50550">00052</a>         <span class="keywordtype">char</span> *<a class="code" href="struct__Tny.html#abaa74403ca9f15a07d3532e116b50550">key</a>;                                      
-<a name="l00053"></a>00053         <span class="keyword">union </span>{
-<a name="l00054"></a>00054                 <span class="keyword">struct </span><a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">_Tny</a> *tny;
-<a name="l00055"></a>00055                 <span class="keywordtype">void</span> *ptr;
-<a name="l00056"></a>00056                 uint64_t num;
-<a name="l00057"></a>00057                 <span class="keywordtype">double</span> flt;
-<a name="l00058"></a>00058                 <span class="keywordtype">char</span> chr;
-<a name="l00059"></a>00059         } <a class="code" href="struct__Tny.html#a832c5c7cfd9f65289a589dd97bbd02f6">value</a>;                                        
-<a name="l00060"></a>00060 } <a class="code" href="tny_8h.html#ad2077717306e4495dc73300da4e25922" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>;
-<a name="l00061"></a>00061 
-<a name="l00080"></a>00080 <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* Tny_add(<a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *<a class="code" href="struct__Tny.html#a8d5f8f0948bf771c7cafa595e8573674">prev</a>, <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895a" title="TnyType contains every supported type.">TnyType</a> <a class="code" href="struct__Tny.html#aecebe7f325021541ee357eb7ca5f2de7">type</a>, <span class="keywordtype">char</span> *<a class="code" href="struct__Tny.html#abaa74403ca9f15a07d3532e116b50550">key</a>, <span class="keywordtype">void</span> *<a class="code" href="struct__Tny.html#a832c5c7cfd9f65289a589dd97bbd02f6">value</a>, uint64_t <a class="code" href="struct__Tny.html#a3e01f2bff5e3d773b3a09d00a229498f">size</a>);
-<a name="l00081"></a>00081 
-<a name="l00091"></a>00091 <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* Tny_copy(<span class="keywordtype">size_t</span> *<a class="code" href="struct__Tny.html#aa8a5f464cc9674c61c82d500772a7b3b">docSizePtr</a>, <span class="keyword">const</span> <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *src);
-<a name="l00092"></a>00092 
-<a name="l00100"></a>00100 <span class="keywordtype">void</span> Tny_remove(<a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *tny);
-<a name="l00101"></a>00101 
-<a name="l00113"></a>00113 <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* Tny_at(<span class="keyword">const</span> <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* tny, <span class="keywordtype">size_t</span> index);
-<a name="l00114"></a>00114 
-<a name="l00126"></a>00126 <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* Tny_get(<span class="keyword">const</span> <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* tny, <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="struct__Tny.html#abaa74403ca9f15a07d3532e116b50550">key</a>);
+<a name="l00048"></a>00048 <span class="preprocessor">#ifndef TNY_H_</span>
+<a name="l00049"></a>00049 <span class="preprocessor"></span><span class="preprocessor">#define TNY_H_</span>
+<a name="l00050"></a>00050 <span class="preprocessor"></span>
+<a name="l00051"></a>00051 <span class="preprocessor">#include &lt;stddef.h&gt;</span>
+<a name="l00052"></a>00052 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054 <span class="keyword">typedef</span> <span class="keyword">enum</span> {
+<a name="l00055"></a>00055     ORDER_LITTLE_ENDIAN = 0x03020100ul,
+<a name="l00056"></a>00056     ORDER_BIG_ENDIAN = 0x00010203ul
+<a name="l00057"></a>00057 } TnyEndianness;
+<a name="l00058"></a>00058 
+<a name="l00059"></a><a class="code" href="uniontnyHostOrder.html">00059</a> <span class="keyword">union </span><a class="code" href="uniontnyHostOrder.html">tnyHostOrder</a> {
+<a name="l00060"></a>00060         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> bytes[4];
+<a name="l00061"></a>00061         uint32_t value;
+<a name="l00062"></a>00062 };
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064 <span class="keyword">extern</span> <span class="keyword">union </span><a class="code" href="uniontnyHostOrder.html">tnyHostOrder</a> <a class="code" href="uniontnyHostOrder.html">tnyHostOrder</a>;
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066 <span class="preprocessor">#define HOST_ORDER (tnyHostOrder.value)</span>
+<a name="l00067"></a>00067 <span class="preprocessor"></span>
+<a name="l00072"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895a">00072</a> <span class="keyword">typedef</span> <span class="keyword">enum</span> {
+<a name="l00073"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa5b762b080dccaffee0b4f990f0652c88">00073</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa5b762b080dccaffee0b4f990f0652c88">TNY_NULL</a>,               
+<a name="l00074"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa1263142a6ef4dfd3d35f3123160ce68a">00074</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa1263142a6ef4dfd3d35f3123160ce68a">TNY_ARRAY</a>,              
+<a name="l00075"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa8e0cc6e1ee1f031ad454e34058f535bc">00075</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa8e0cc6e1ee1f031ad454e34058f535bc">TNY_DICT</a>,               
+<a name="l00076"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aaa018e9896bcdf2071532c5133f1b2b7a">00076</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aaa018e9896bcdf2071532c5133f1b2b7a">TNY_OBJ</a>,                
+<a name="l00077"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa44e70a43a73c8e1a1c2f4f25cc8da3d6">00077</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa44e70a43a73c8e1a1c2f4f25cc8da3d6">TNY_BIN</a>,                
+<a name="l00078"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa327123511414e6def339277bfdb362ff">00078</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa327123511414e6def339277bfdb362ff">TNY_CHAR</a>,               
+<a name="l00079"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa18c333ad1f2b71cf8844a0c8c9c81e69">00079</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa18c333ad1f2b71cf8844a0c8c9c81e69">TNY_INT32</a>,              
+<a name="l00080"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa936e5a634a1da52ee4b64a291d8f16e2">00080</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa936e5a634a1da52ee4b64a291d8f16e2">TNY_INT64</a>,              
+<a name="l00081"></a><a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa657c6417523daa2a2ebb578277c19772">00081</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895aa657c6417523daa2a2ebb578277c19772">TNY_DOUBLE</a>              
+<a name="l00082"></a>00082 } <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895a" title="TnyType contains every supported type.">TnyType</a>;
+<a name="l00083"></a>00083 
+<a name="l00087"></a><a class="code" href="struct__Tny.html">00087</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">_Tny</a> {
+<a name="l00088"></a><a class="code" href="struct__Tny.html#a8d5f8f0948bf771c7cafa595e8573674">00088</a>         <span class="keyword">struct </span><a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">_Tny</a> *<a class="code" href="struct__Tny.html#a8d5f8f0948bf771c7cafa595e8573674">prev</a>;                      
+<a name="l00089"></a><a class="code" href="struct__Tny.html#afc48d7b4e60d6526269070165ec94169">00089</a>         <span class="keyword">struct </span><a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">_Tny</a> *<a class="code" href="struct__Tny.html#afc48d7b4e60d6526269070165ec94169">next</a>;                      
+<a name="l00090"></a><a class="code" href="struct__Tny.html#acb94256d861006db4e789a8a8733a48c">00090</a>         <span class="keyword">struct </span><a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">_Tny</a> *<a class="code" href="struct__Tny.html#acb94256d861006db4e789a8a8733a48c">root</a>;                      
+<a name="l00091"></a><a class="code" href="struct__Tny.html#aecebe7f325021541ee357eb7ca5f2de7">00091</a>         <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895a" title="TnyType contains every supported type.">TnyType</a> <a class="code" href="struct__Tny.html#aecebe7f325021541ee357eb7ca5f2de7">type</a>;                           
+<a name="l00093"></a><a class="code" href="struct__Tny.html#ab23a0bb54191a8d5e38c6984da5c4c40">00093</a>         <span class="keywordtype">size_t</span> <a class="code" href="struct__Tny.html#ab23a0bb54191a8d5e38c6984da5c4c40">docSize</a>;                         
+<a name="l00095"></a><a class="code" href="struct__Tny.html#aa8a5f464cc9674c61c82d500772a7b3b">00095</a>         <span class="keywordtype">size_t</span> *<a class="code" href="struct__Tny.html#aa8a5f464cc9674c61c82d500772a7b3b">docSizePtr</a>;                     
+<a name="l00096"></a><a class="code" href="struct__Tny.html#a3e01f2bff5e3d773b3a09d00a229498f">00096</a>         uint32_t <a class="code" href="struct__Tny.html#a3e01f2bff5e3d773b3a09d00a229498f">size</a>;                          
+<a name="l00098"></a><a class="code" href="struct__Tny.html#abaa74403ca9f15a07d3532e116b50550">00098</a>         <span class="keywordtype">char</span> *<a class="code" href="struct__Tny.html#abaa74403ca9f15a07d3532e116b50550">key</a>;                                      
+<a name="l00099"></a>00099         <span class="keyword">union </span>{
+<a name="l00100"></a>00100                 <span class="keyword">struct </span><a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">_Tny</a> *tny;
+<a name="l00101"></a>00101                 <span class="keywordtype">void</span> *ptr;
+<a name="l00102"></a>00102                 uint64_t num;
+<a name="l00103"></a>00103                 <span class="keywordtype">double</span> flt;
+<a name="l00104"></a>00104                 <span class="keywordtype">char</span> chr;
+<a name="l00105"></a>00105         } <a class="code" href="struct__Tny.html#a832c5c7cfd9f65289a589dd97bbd02f6">value</a>;                                        
+<a name="l00106"></a>00106 } <a class="code" href="tny_8h.html#ad2077717306e4495dc73300da4e25922" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>;
+<a name="l00107"></a>00107 
+<a name="l00126"></a>00126 <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* Tny_add(<a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *<a class="code" href="struct__Tny.html#a8d5f8f0948bf771c7cafa595e8573674">prev</a>, <a class="code" href="tny_8h.html#a8ea44ecc8eca132c2880a11862c4895a" title="TnyType contains every supported type.">TnyType</a> <a class="code" href="struct__Tny.html#aecebe7f325021541ee357eb7ca5f2de7">type</a>, <span class="keywordtype">char</span> *<a class="code" href="struct__Tny.html#abaa74403ca9f15a07d3532e116b50550">key</a>, <span class="keywordtype">void</span> *<a class="code" href="struct__Tny.html#a832c5c7cfd9f65289a589dd97bbd02f6">value</a>, uint64_t <a class="code" href="struct__Tny.html#a3e01f2bff5e3d773b3a09d00a229498f">size</a>);
 <a name="l00127"></a>00127 
-<a name="l00141"></a>00141 <span class="keywordtype">size_t</span> Tny_dumps(<span class="keyword">const</span> <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *tny, <span class="keywordtype">void</span> **data);
-<a name="l00142"></a>00142 
-<a name="l00152"></a>00152 <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* Tny_loads(<span class="keywordtype">void</span> *data, <span class="keywordtype">size_t</span> length);
-<a name="l00153"></a>00153 
-<a name="l00163"></a>00163 <span class="keywordtype">int</span> Tny_hasNext(<span class="keyword">const</span> <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *tny);
-<a name="l00164"></a>00164 
-<a name="l00172"></a>00172 <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* Tny_next(<span class="keyword">const</span> <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *tny);
+<a name="l00137"></a>00137 <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* Tny_copy(<span class="keywordtype">size_t</span> *<a class="code" href="struct__Tny.html#aa8a5f464cc9674c61c82d500772a7b3b">docSizePtr</a>, <span class="keyword">const</span> <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *src);
+<a name="l00138"></a>00138 
+<a name="l00146"></a>00146 <span class="keywordtype">void</span> Tny_remove(<a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *tny);
+<a name="l00147"></a>00147 
+<a name="l00159"></a>00159 <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* Tny_at(<span class="keyword">const</span> <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* tny, <span class="keywordtype">size_t</span> index);
+<a name="l00160"></a>00160 
+<a name="l00172"></a>00172 <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* Tny_get(<span class="keyword">const</span> <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* tny, <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="struct__Tny.html#abaa74403ca9f15a07d3532e116b50550">key</a>);
 <a name="l00173"></a>00173 
-<a name="l00179"></a>00179 <span class="keywordtype">void</span> Tny_free(<a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *tny);
-<a name="l00180"></a>00180 
-<a name="l00181"></a>00181 <span class="preprocessor">#endif </span><span class="comment">/* TNY_H_ */</span>
+<a name="l00187"></a>00187 <span class="keywordtype">size_t</span> Tny_dumps(<span class="keyword">const</span> <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *tny, <span class="keywordtype">void</span> **data);
+<a name="l00188"></a>00188 
+<a name="l00198"></a>00198 <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* Tny_loads(<span class="keywordtype">void</span> *data, <span class="keywordtype">size_t</span> length);
+<a name="l00199"></a>00199 
+<a name="l00209"></a>00209 <span class="keywordtype">int</span> Tny_hasNext(<span class="keyword">const</span> <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *tny);
+<a name="l00210"></a>00210 
+<a name="l00218"></a>00218 <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a>* Tny_next(<span class="keyword">const</span> <a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *tny);
+<a name="l00219"></a>00219 
+<a name="l00225"></a>00225 <span class="keywordtype">void</span> Tny_free(<a class="code" href="struct__Tny.html" title="Tny is the main type. Every Tny-document consists of chained Tny-elements.">Tny</a> *tny);
+<a name="l00226"></a>00226 
+<a name="l00227"></a>00227 <span class="preprocessor">#endif </span><span class="comment">/* TNY_H_ */</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -169,7 +169,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 22 2013 19:44:41 for Tny by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 23 2013 00:17:13 for Tny by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
