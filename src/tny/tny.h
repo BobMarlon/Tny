@@ -1,4 +1,50 @@
-/** @file */
+/** @file
+ *
+ *	The Tny binary format looks like this (ABNF):
+ *
+ * \code{.txt}
+ * 	Document            =  (ArrayHeader *ArrayElement) / (DictionaryHeader *DictionaryElement)
+ *	ArrayHeader         =  ArrayType NumberOfElements
+ *	DictionaryHeader    =  DictionaryType NumberOfElements
+ *	NumberOfElements    =  int32
+ *	; Dictionary element
+ *	DictionaryElement   =  NullType   Key
+ *	DictionaryElement   =/ ObjectType Key ObjectValue
+ *	DictionaryElement   =/ BinaryType Key BinaryValue
+ *	DictionaryElement   =/ CharType   Key CharValue
+ *	DictionaryElement   =/ Int32Type  Key Int32Value
+ *	DictionaryElement   =/ Int64Type  Key Int64Value
+ *	DictionaryElement   =/ DoubleType Key DoubleValue
+ *	Key                 =  int32 1*(%x01-FF)
+ *	; Array element
+ *	ArrayElement        =  NullType
+ *	ArrayElement        =/ ObjectType 	ObjectValue
+ *	ArrayElement        =/ BinaryType 	BinaryValue
+ *	ArrayElement        =/ CharType 	CharValue
+ *	ArrayElement        =/ Int32Type 	Int32Value
+ *	ArrayElement        =/ Int64Type 	Int64Value
+ *	ArrayElement        =/ DoubleType 	DoubleValue
+ *	; Types
+ *	NullType            =  %x00
+ *	ArrayType           =  %x01
+ *	DictionaryType      =  %x02
+ *	ObjectType          =  %x03
+ *	BinaryType          =  %x04
+ *	CharType            =  %x05
+ *	Int32Type           =  %x06
+ *	Int64Type           =  %x07
+ *	DoubleType          =  %x08
+ *	; Values
+ *	ObjectValue         =  Document
+ *	BinaryValue         =  int32 *CharValue
+ *	CharValue           =  %x00-FF
+ *	Int32Value          =  int32
+ *	Int64Value          =  int64
+ *	DoubleValue         =  int64
+ *	int32               =  4(%x00-FF)
+ *	int64               =  8(%x00-FF)
+ *	\endcode
+ */
 #ifndef TNY_H_
 #define TNY_H_
 
