@@ -6,6 +6,10 @@ a kind of binary JSON but unlike BSON it also supports arrays as root elements.
 It was designed to be simple and easy to use. If you want to know how to use it, take a look
 at src/tny/tny.h or the tests located at src/tests.c
 
+## Documentation
+
+The documentation can be found in [doc/](https://github.com/BobMarlon/Tny/tree/master/doc).
+
 ## System Requirements
 
 Tny should run on every plattform with a compatible C99 compiler.
