@@ -29,6 +29,7 @@ int main(int argc, char **argv)
 		dict = Tny_add(dict, TNY_BIN, "Street", street, sizeof(street));
 		dict = Tny_add(dict, TNY_INT32, "Nr", &streetnr, 0);
 		array = Tny_add(array, TNY_OBJ, NULL, dict, 0);
+		Tny_free(dict);
 	}
 	gettimeofday(&t1, NULL);
 	creation = t1.tv_sec - t0.tv_sec + 1E-6 * (t1.tv_usec - t0.tv_usec);
