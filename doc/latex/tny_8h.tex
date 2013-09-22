@@ -1,0 +1,333 @@
+\hypertarget{tny_8h}{\section{/home/nop/\-Eclipse-\/\-C\-D\-T/workspace/\-Test\-C/src/tny/tny.h \-File \-Reference}
+\label{tny_8h}\index{/home/nop/\-Eclipse-\/\-C\-D\-T/workspace/\-Test\-C/src/tny/tny.\-h@{/home/nop/\-Eclipse-\/\-C\-D\-T/workspace/\-Test\-C/src/tny/tny.\-h}}
+}
+{\ttfamily \#include $<$stddef.\-h$>$}\*
+{\ttfamily \#include $<$stdint.\-h$>$}\*
+\subsection*{\-Data \-Structures}
+\begin{DoxyCompactItemize}
+\item 
+union \hyperlink{uniontnyHostOrder}{tny\-Host\-Order}
+\item 
+struct \hyperlink{struct__Tny}{\-\_\-\-Tny}
+\begin{DoxyCompactList}\small\item\em \-Tny is the main type. \-Every \-Tny-\/document consists of chained \-Tny-\/elements. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{tny_8h_ab6976332a133858e036ba084da230605}{\#define {\bfseries \-H\-O\-S\-T\-\_\-\-O\-R\-D\-E\-R}~(tny\-Host\-Order.\-value)}\label{tny_8h_ab6976332a133858e036ba084da230605}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{tny_8h_ad2077717306e4495dc73300da4e25922}{typedef struct \hyperlink{struct__Tny}{\-\_\-\-Tny} \hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny}}\label{tny_8h_ad2077717306e4495dc73300da4e25922}
+
+\begin{DoxyCompactList}\small\item\em \-Tny is the main type. \-Every \-Tny-\/document consists of chained \-Tny-\/elements. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries \-Tny\-Endianness} \{ {\bfseries \-O\-R\-D\-E\-R\-\_\-\-L\-I\-T\-T\-L\-E\-\_\-\-E\-N\-D\-I\-A\-N} =  0x03020100ul, 
+{\bfseries \-O\-R\-D\-E\-R\-\_\-\-B\-I\-G\-\_\-\-E\-N\-D\-I\-A\-N} =  0x00010203ul
+ \}
+\item 
+enum \hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895a}{\-Tny\-Type} \{ \*
+\hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa5b762b080dccaffee0b4f990f0652c88}{\-T\-N\-Y\-\_\-\-N\-U\-L\-L}, 
+\hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa1263142a6ef4dfd3d35f3123160ce68a}{\-T\-N\-Y\-\_\-\-A\-R\-R\-A\-Y}, 
+\hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa8e0cc6e1ee1f031ad454e34058f535bc}{\-T\-N\-Y\-\_\-\-D\-I\-C\-T}, 
+\hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aaa018e9896bcdf2071532c5133f1b2b7a}{\-T\-N\-Y\-\_\-\-O\-B\-J}, 
+\*
+\hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa44e70a43a73c8e1a1c2f4f25cc8da3d6}{\-T\-N\-Y\-\_\-\-B\-I\-N}, 
+\hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa327123511414e6def339277bfdb362ff}{\-T\-N\-Y\-\_\-\-C\-H\-A\-R}, 
+\hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa18c333ad1f2b71cf8844a0c8c9c81e69}{\-T\-N\-Y\-\_\-\-I\-N\-T32}, 
+\hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa936e5a634a1da52ee4b64a291d8f16e2}{\-T\-N\-Y\-\_\-\-I\-N\-T64}, 
+\*
+\hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa657c6417523daa2a2ebb578277c19772}{\-T\-N\-Y\-\_\-\-D\-O\-U\-B\-L\-E}
+ \}
+\begin{DoxyCompactList}\small\item\em \-Tny\-Type contains every supported type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$ \hyperlink{tny_8h_a71177d1bd33a30d02f743dd2aabd63e7}{\-Tny\-\_\-add} (\hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$prev, \hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895a}{\-Tny\-Type} type, char $\ast$key, void $\ast$value, uint64\-\_\-t size)
+\begin{DoxyCompactList}\small\item\em \-Adds a new element after the {\ttfamily prev} element. \end{DoxyCompactList}\item 
+\hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$ \hyperlink{tny_8h_a2e658b53d575fcd75191dd4321f7ac90}{\-Tny\-\_\-copy} (size\-\_\-t $\ast$doc\-Size\-Ptr, const \hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$src)
+\begin{DoxyCompactList}\small\item\em \-Performs a deep copy of the {\ttfamily src} object. \end{DoxyCompactList}\item 
+void \hyperlink{tny_8h_afb1c0d2ac8174b9fcee46467d09231ab}{\-Tny\-\_\-remove} (\hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$tny)
+\begin{DoxyCompactList}\small\item\em \-Removes an element or a complete document. \end{DoxyCompactList}\item 
+\hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$ \hyperlink{tny_8h_aa87da080ce5b9cf04696bb0466461f4e}{\-Tny\-\_\-at} (const \hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$tny, size\-\_\-t index)
+\begin{DoxyCompactList}\small\item\em \-Returns the element at position {\ttfamily index}. \end{DoxyCompactList}\item 
+\hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$ \hyperlink{tny_8h_a7fba7764e27addca89966f26b0e7e8ff}{\-Tny\-\_\-get} (const \hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$tny, const char $\ast$key)
+\begin{DoxyCompactList}\small\item\em \-Returns the element with the specified key. \end{DoxyCompactList}\item 
+size\-\_\-t \hyperlink{tny_8h_a168b96036b21ea4c4e157f432d4a0866}{\-Tny\-\_\-dumps} (const \hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$tny, void $\ast$$\ast$data)
+\begin{DoxyCompactList}\small\item\em \-Serializes a document. \end{DoxyCompactList}\item 
+\hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$ \hyperlink{tny_8h_af477e6db2b07698d6b232136b4394ae0}{\-Tny\-\_\-loads} (void $\ast$data, size\-\_\-t length)
+\begin{DoxyCompactList}\small\item\em \-Deserializes a serialized document. \end{DoxyCompactList}\item 
+int \hyperlink{tny_8h_aa9dd8fb66f1ac7abbd2c5930808a06d2}{\-Tny\-\_\-has\-Next} (const \hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$tny)
+\begin{DoxyCompactList}\small\item\em \-Checks if there are more elements to fetch. \end{DoxyCompactList}\item 
+\hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$ \hyperlink{tny_8h_a4f73c4b5a7949ca31f5e0dbfbd331832}{\-Tny\-\_\-next} (const \hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$tny)
+\begin{DoxyCompactList}\small\item\em \-Returns the next element. \end{DoxyCompactList}\item 
+void \hyperlink{tny_8h_af918d6ecd9b94de2f13ca61dcd3c5406}{\-Tny\-\_\-free} (\hyperlink{tny_8h_ad2077717306e4495dc73300da4e25922}{\-Tny} $\ast$tny)
+\begin{DoxyCompactList}\small\item\em \-Frees the document. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{tny_8h_aed9f03e7dc586abedd78bb02870b20cd}{union \hyperlink{uniontnyHostOrder}{tny\-Host\-Order} {\bfseries tny\-Host\-Order}}\label{tny_8h_aed9f03e7dc586abedd78bb02870b20cd}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+
+
+\subsection{\-Enumeration \-Type \-Documentation}
+\hypertarget{tny_8h_a8ea44ecc8eca132c2880a11862c4895a}{\index{tny.\-h@{tny.\-h}!\-Tny\-Type@{\-Tny\-Type}}
+\index{\-Tny\-Type@{\-Tny\-Type}!tny.h@{tny.\-h}}
+\subsubsection[{\-Tny\-Type}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf \-Tny\-Type}}}\label{tny_8h_a8ea44ecc8eca132c2880a11862c4895a}
+
+
+\-Tny\-Type contains every supported type. 
+
+\begin{Desc}
+\item[\-Enumerator\-: ]\par
+\begin{description}
+\index{\-T\-N\-Y\-\_\-\-N\-U\-L\-L@{\-T\-N\-Y\-\_\-\-N\-U\-L\-L}!tny.\-h@{tny.\-h}}\index{tny.\-h@{tny.\-h}!\-T\-N\-Y\-\_\-\-N\-U\-L\-L@{\-T\-N\-Y\-\_\-\-N\-U\-L\-L}}\item[{\em 
+\hypertarget{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa5b762b080dccaffee0b4f990f0652c88}{\-T\-N\-Y\-\_\-\-N\-U\-L\-L}\label{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa5b762b080dccaffee0b4f990f0652c88}
+}]\-N\-U\-L\-L type \index{\-T\-N\-Y\-\_\-\-A\-R\-R\-A\-Y@{\-T\-N\-Y\-\_\-\-A\-R\-R\-A\-Y}!tny.\-h@{tny.\-h}}\index{tny.\-h@{tny.\-h}!\-T\-N\-Y\-\_\-\-A\-R\-R\-A\-Y@{\-T\-N\-Y\-\_\-\-A\-R\-R\-A\-Y}}\item[{\em 
+\hypertarget{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa1263142a6ef4dfd3d35f3123160ce68a}{\-T\-N\-Y\-\_\-\-A\-R\-R\-A\-Y}\label{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa1263142a6ef4dfd3d35f3123160ce68a}
+}]\-Document type\-: \-Array \index{\-T\-N\-Y\-\_\-\-D\-I\-C\-T@{\-T\-N\-Y\-\_\-\-D\-I\-C\-T}!tny.\-h@{tny.\-h}}\index{tny.\-h@{tny.\-h}!\-T\-N\-Y\-\_\-\-D\-I\-C\-T@{\-T\-N\-Y\-\_\-\-D\-I\-C\-T}}\item[{\em 
+\hypertarget{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa8e0cc6e1ee1f031ad454e34058f535bc}{\-T\-N\-Y\-\_\-\-D\-I\-C\-T}\label{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa8e0cc6e1ee1f031ad454e34058f535bc}
+}]\-Document type\-: \-Dictionary \index{\-T\-N\-Y\-\_\-\-O\-B\-J@{\-T\-N\-Y\-\_\-\-O\-B\-J}!tny.\-h@{tny.\-h}}\index{tny.\-h@{tny.\-h}!\-T\-N\-Y\-\_\-\-O\-B\-J@{\-T\-N\-Y\-\_\-\-O\-B\-J}}\item[{\em 
+\hypertarget{tny_8h_a8ea44ecc8eca132c2880a11862c4895aaa018e9896bcdf2071532c5133f1b2b7a}{\-T\-N\-Y\-\_\-\-O\-B\-J}\label{tny_8h_a8ea44ecc8eca132c2880a11862c4895aaa018e9896bcdf2071532c5133f1b2b7a}
+}]\-Object type\-: \-Used for sub documents. \index{\-T\-N\-Y\-\_\-\-B\-I\-N@{\-T\-N\-Y\-\_\-\-B\-I\-N}!tny.\-h@{tny.\-h}}\index{tny.\-h@{tny.\-h}!\-T\-N\-Y\-\_\-\-B\-I\-N@{\-T\-N\-Y\-\_\-\-B\-I\-N}}\item[{\em 
+\hypertarget{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa44e70a43a73c8e1a1c2f4f25cc8da3d6}{\-T\-N\-Y\-\_\-\-B\-I\-N}\label{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa44e70a43a73c8e1a1c2f4f25cc8da3d6}
+}]\-Binary type\-: \-Used for binary data (the size has to be specified). \index{\-T\-N\-Y\-\_\-\-C\-H\-A\-R@{\-T\-N\-Y\-\_\-\-C\-H\-A\-R}!tny.\-h@{tny.\-h}}\index{tny.\-h@{tny.\-h}!\-T\-N\-Y\-\_\-\-C\-H\-A\-R@{\-T\-N\-Y\-\_\-\-C\-H\-A\-R}}\item[{\em 
+\hypertarget{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa327123511414e6def339277bfdb362ff}{\-T\-N\-Y\-\_\-\-C\-H\-A\-R}\label{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa327123511414e6def339277bfdb362ff}
+}]\-Character type\-: \-Used for storing a single character. \index{\-T\-N\-Y\-\_\-\-I\-N\-T32@{\-T\-N\-Y\-\_\-\-I\-N\-T32}!tny.\-h@{tny.\-h}}\index{tny.\-h@{tny.\-h}!\-T\-N\-Y\-\_\-\-I\-N\-T32@{\-T\-N\-Y\-\_\-\-I\-N\-T32}}\item[{\em 
+\hypertarget{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa18c333ad1f2b71cf8844a0c8c9c81e69}{\-T\-N\-Y\-\_\-\-I\-N\-T32}\label{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa18c333ad1f2b71cf8844a0c8c9c81e69}
+}]32 bit integer type. \index{\-T\-N\-Y\-\_\-\-I\-N\-T64@{\-T\-N\-Y\-\_\-\-I\-N\-T64}!tny.\-h@{tny.\-h}}\index{tny.\-h@{tny.\-h}!\-T\-N\-Y\-\_\-\-I\-N\-T64@{\-T\-N\-Y\-\_\-\-I\-N\-T64}}\item[{\em 
+\hypertarget{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa936e5a634a1da52ee4b64a291d8f16e2}{\-T\-N\-Y\-\_\-\-I\-N\-T64}\label{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa936e5a634a1da52ee4b64a291d8f16e2}
+}]64 bit integer type. \index{\-T\-N\-Y\-\_\-\-D\-O\-U\-B\-L\-E@{\-T\-N\-Y\-\_\-\-D\-O\-U\-B\-L\-E}!tny.\-h@{tny.\-h}}\index{tny.\-h@{tny.\-h}!\-T\-N\-Y\-\_\-\-D\-O\-U\-B\-L\-E@{\-T\-N\-Y\-\_\-\-D\-O\-U\-B\-L\-E}}\item[{\em 
+\hypertarget{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa657c6417523daa2a2ebb578277c19772}{\-T\-N\-Y\-\_\-\-D\-O\-U\-B\-L\-E}\label{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa657c6417523daa2a2ebb578277c19772}
+}]\-Double-\/precision floating-\/point number. \end{description}
+\end{Desc}
+
+
+
+\subsection{\-Function \-Documentation}
+\hypertarget{tny_8h_a71177d1bd33a30d02f743dd2aabd63e7}{\index{tny.\-h@{tny.\-h}!\-Tny\-\_\-add@{\-Tny\-\_\-add}}
+\index{\-Tny\-\_\-add@{\-Tny\-\_\-add}!tny.h@{tny.\-h}}
+\subsubsection[{\-Tny\-\_\-add}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Tny}$\ast$ {\bf \-Tny\-\_\-add} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Tny} $\ast$}]{prev, }
+\item[{{\bf \-Tny\-Type}}]{type, }
+\item[{char $\ast$}]{key, }
+\item[{void $\ast$}]{value, }
+\item[{uint64\-\_\-t}]{size}
+\end{DoxyParamCaption}
+)}}\label{tny_8h_a71177d1bd33a30d02f743dd2aabd63e7}
+
+
+\-Adds a new element after the {\ttfamily prev} element. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em prev} & is the previous element. \-If {\ttfamily prev} is \-N\-U\-L\-L, a new document will be created. \\
+\hline
+\mbox{\tt in}  & {\em type} & is the type of the new element. \-If this is the first element you can either use \hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa1263142a6ef4dfd3d35f3123160ce68a}{\-T\-N\-Y\-\_\-\-A\-R\-R\-A\-Y} for an array or \hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa8e0cc6e1ee1f031ad454e34058f535bc}{\-T\-N\-Y\-\_\-\-D\-I\-C\-T} for a dictionary. \\
+\hline
+\mbox{\tt in}  & {\em key} & \-If the document is of type \hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa8e0cc6e1ee1f031ad454e34058f535bc}{\-T\-N\-Y\-\_\-\-D\-I\-C\-T}, the {\ttfamily key} must be set in every element. \-Otherwise {\ttfamily key} can be \-N\-U\-L\-L. \\
+\hline
+\mbox{\tt in}  & {\em value} & is the value of the new element. \-If the type is \hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aaa018e9896bcdf2071532c5133f1b2b7a}{\-T\-N\-Y\-\_\-\-O\-B\-J} a deep copy of {\ttfamily value} will be performed. \\
+\hline
+\mbox{\tt in}  & {\em size} & needs only to be set if the element is of type \hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa44e70a43a73c8e1a1c2f4f25cc8da3d6}{\-T\-N\-Y\-\_\-\-B\-I\-N}. \-Otherwise it can be 0. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\-If the function succeeds it returns the new created element, otherwise \-N\-U\-L\-L. 
+\end{DoxyReturn}
+\hypertarget{tny_8h_aa87da080ce5b9cf04696bb0466461f4e}{\index{tny.\-h@{tny.\-h}!\-Tny\-\_\-at@{\-Tny\-\_\-at}}
+\index{\-Tny\-\_\-at@{\-Tny\-\_\-at}!tny.h@{tny.\-h}}
+\subsubsection[{\-Tny\-\_\-at}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Tny}$\ast$ {\bf \-Tny\-\_\-at} (
+\begin{DoxyParamCaption}
+\item[{const {\bf \-Tny} $\ast$}]{tny, }
+\item[{size\-\_\-t}]{index}
+\end{DoxyParamCaption}
+)}}\label{tny_8h_aa87da080ce5b9cf04696bb0466461f4e}
+
+
+\-Returns the element at position {\ttfamily index}. 
+
+\-Works in a \-T\-N\-Y\-\_\-\-A\-R\-R\-A\-Y and a \-T\-N\-Y\-\_\-\-D\-I\-C\-T.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em tny} & is the document or an element somewhere in the document. \\
+\hline
+\mbox{\tt in}  & {\em index} & is the position of the element in the document {\ttfamily tny}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the element if the function succeeds, otherwise \-N\-U\-L\-L. 
+\end{DoxyReturn}
+\hypertarget{tny_8h_a2e658b53d575fcd75191dd4321f7ac90}{\index{tny.\-h@{tny.\-h}!\-Tny\-\_\-copy@{\-Tny\-\_\-copy}}
+\index{\-Tny\-\_\-copy@{\-Tny\-\_\-copy}!tny.h@{tny.\-h}}
+\subsubsection[{\-Tny\-\_\-copy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Tny}$\ast$ {\bf \-Tny\-\_\-copy} (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t $\ast$}]{doc\-Size\-Ptr, }
+\item[{const {\bf \-Tny} $\ast$}]{src}
+\end{DoxyParamCaption}
+)}}\label{tny_8h_a2e658b53d575fcd75191dd4321f7ac90}
+
+
+\-Performs a deep copy of the {\ttfamily src} object. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em doc\-Size\-Ptr} & is only needed for internal use of \-Tny and can be \-N\-U\-L\-L. \\
+\hline
+\mbox{\tt in}  & {\em src} & is the source document which will be copied. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the newly copied element. \-If any error occurs, \-N\-U\-L\-L is returned. 
+\end{DoxyReturn}
+\hypertarget{tny_8h_a168b96036b21ea4c4e157f432d4a0866}{\index{tny.\-h@{tny.\-h}!\-Tny\-\_\-dumps@{\-Tny\-\_\-dumps}}
+\index{\-Tny\-\_\-dumps@{\-Tny\-\_\-dumps}!tny.h@{tny.\-h}}
+\subsubsection[{\-Tny\-\_\-dumps}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf \-Tny\-\_\-dumps} (
+\begin{DoxyParamCaption}
+\item[{const {\bf \-Tny} $\ast$}]{tny, }
+\item[{void $\ast$$\ast$}]{data}
+\end{DoxyParamCaption}
+)}}\label{tny_8h_a168b96036b21ea4c4e157f432d4a0866}
+
+
+\-Serializes a document. 
+
+\-Serializes the document and stores the result in {\ttfamily data}. \-The memory needed for the serialization will get allocated.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em tny} & is the document which shall be serialized. \\
+\hline
+\mbox{\tt out}  & {\em data} & is the position where the serialized document is copied to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the size in bytes of the serialized document. \-If the function fails, 0 is returned. 
+\end{DoxyReturn}
+\hypertarget{tny_8h_af918d6ecd9b94de2f13ca61dcd3c5406}{\index{tny.\-h@{tny.\-h}!\-Tny\-\_\-free@{\-Tny\-\_\-free}}
+\index{\-Tny\-\_\-free@{\-Tny\-\_\-free}!tny.h@{tny.\-h}}
+\subsubsection[{\-Tny\-\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Tny\-\_\-free} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Tny} $\ast$}]{tny}
+\end{DoxyParamCaption}
+)}}\label{tny_8h_af918d6ecd9b94de2f13ca61dcd3c5406}
+
+
+\-Frees the document. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em tny} & is the document which shall be free'd. \\
+\hline
+\end{DoxyParams}
+\hypertarget{tny_8h_a7fba7764e27addca89966f26b0e7e8ff}{\index{tny.\-h@{tny.\-h}!\-Tny\-\_\-get@{\-Tny\-\_\-get}}
+\index{\-Tny\-\_\-get@{\-Tny\-\_\-get}!tny.h@{tny.\-h}}
+\subsubsection[{\-Tny\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Tny}$\ast$ {\bf \-Tny\-\_\-get} (
+\begin{DoxyParamCaption}
+\item[{const {\bf \-Tny} $\ast$}]{tny, }
+\item[{const char $\ast$}]{key}
+\end{DoxyParamCaption}
+)}}\label{tny_8h_a7fba7764e27addca89966f26b0e7e8ff}
+
+
+\-Returns the element with the specified key. 
+
+\-Works in a \-T\-N\-Y\-\_\-\-A\-R\-R\-A\-Y and a \-T\-N\-Y\-\_\-\-D\-I\-C\-T.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em tny} & is the document or an element somewhere in the document. \\
+\hline
+\mbox{\tt in}  & {\em key} & is the key of the element in the document {\ttfamily tny}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the element if the function succeeds, otherwise \-N\-U\-L\-L. 
+\end{DoxyReturn}
+\hypertarget{tny_8h_aa9dd8fb66f1ac7abbd2c5930808a06d2}{\index{tny.\-h@{tny.\-h}!\-Tny\-\_\-has\-Next@{\-Tny\-\_\-has\-Next}}
+\index{\-Tny\-\_\-has\-Next@{\-Tny\-\_\-has\-Next}!tny.h@{tny.\-h}}
+\subsubsection[{\-Tny\-\_\-has\-Next}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \-Tny\-\_\-has\-Next} (
+\begin{DoxyParamCaption}
+\item[{const {\bf \-Tny} $\ast$}]{tny}
+\end{DoxyParamCaption}
+)}}\label{tny_8h_aa9dd8fb66f1ac7abbd2c5930808a06d2}
+
+
+\-Checks if there are more elements to fetch. 
+
+\-Simple iterator function which makes it easy to walk through an \-Tny document.
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em tny} & is the current element. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+1 if there are more elements, otherwise 0. 
+\end{DoxyReturn}
+\hypertarget{tny_8h_af477e6db2b07698d6b232136b4394ae0}{\index{tny.\-h@{tny.\-h}!\-Tny\-\_\-loads@{\-Tny\-\_\-loads}}
+\index{\-Tny\-\_\-loads@{\-Tny\-\_\-loads}!tny.h@{tny.\-h}}
+\subsubsection[{\-Tny\-\_\-loads}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Tny}$\ast$ {\bf \-Tny\-\_\-loads} (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{data, }
+\item[{size\-\_\-t}]{length}
+\end{DoxyParamCaption}
+)}}\label{tny_8h_af477e6db2b07698d6b232136b4394ae0}
+
+
+\-Deserializes a serialized document. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em data} & contains the serialized document. \\
+\hline
+\mbox{\tt in}  & {\em length} & is the size in bytes of the serialized document. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the deserialized document. \-If the function fails, \-N\-U\-L\-L is returned. 
+\end{DoxyReturn}
+\hypertarget{tny_8h_a4f73c4b5a7949ca31f5e0dbfbd331832}{\index{tny.\-h@{tny.\-h}!\-Tny\-\_\-next@{\-Tny\-\_\-next}}
+\index{\-Tny\-\_\-next@{\-Tny\-\_\-next}!tny.h@{tny.\-h}}
+\subsubsection[{\-Tny\-\_\-next}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Tny}$\ast$ {\bf \-Tny\-\_\-next} (
+\begin{DoxyParamCaption}
+\item[{const {\bf \-Tny} $\ast$}]{tny}
+\end{DoxyParamCaption}
+)}}\label{tny_8h_a4f73c4b5a7949ca31f5e0dbfbd331832}
+
+
+\-Returns the next element. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em tny} & is the last element fetched by \hyperlink{tny_8h_a4f73c4b5a7949ca31f5e0dbfbd331832}{\-Tny\-\_\-next}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the next element in the list, otherwise \-N\-U\-L\-L. 
+\end{DoxyReturn}
+\hypertarget{tny_8h_afb1c0d2ac8174b9fcee46467d09231ab}{\index{tny.\-h@{tny.\-h}!\-Tny\-\_\-remove@{\-Tny\-\_\-remove}}
+\index{\-Tny\-\_\-remove@{\-Tny\-\_\-remove}!tny.h@{tny.\-h}}
+\subsubsection[{\-Tny\-\_\-remove}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Tny\-\_\-remove} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Tny} $\ast$}]{tny}
+\end{DoxyParamCaption}
+)}}\label{tny_8h_afb1c0d2ac8174b9fcee46467d09231ab}
+
+
+\-Removes an element or a complete document. 
+
+
+\begin{DoxyParams}[1]{\-Parameters}
+\mbox{\tt in}  & {\em tny} & is the element which shall be deleted. \-If an element somewhere in the document is passed, the elements get deleted. \-But if you pass the beginning of a document (the element with the type \hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa1263142a6ef4dfd3d35f3123160ce68a}{\-T\-N\-Y\-\_\-\-A\-R\-R\-A\-Y} or \hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895aa8e0cc6e1ee1f031ad454e34058f535bc}{\-T\-N\-Y\-\_\-\-D\-I\-C\-T}) then to entire document will be deleted. \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,80 @@
+\hypertarget{struct__Tny}{\section{\-\_\-\-Tny \-Struct \-Reference}
+\label{struct__Tny}\index{\-\_\-\-Tny@{\-\_\-\-Tny}}
+}
+
+
+\-Tny is the main type. \-Every \-Tny-\/document consists of chained \-Tny-\/elements.  
+
+
+
+
+{\ttfamily \#include $<$tny.\-h$>$}
+
+\subsection*{\-Data \-Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct__Tny}{\-\_\-\-Tny} $\ast$ \hyperlink{struct__Tny_a8d5f8f0948bf771c7cafa595e8573674}{prev}
+\item 
+struct \hyperlink{struct__Tny}{\-\_\-\-Tny} $\ast$ \hyperlink{struct__Tny_afc48d7b4e60d6526269070165ec94169}{next}
+\item 
+struct \hyperlink{struct__Tny}{\-\_\-\-Tny} $\ast$ \hyperlink{struct__Tny_acb94256d861006db4e789a8a8733a48c}{root}
+\item 
+\hyperlink{tny_8h_a8ea44ecc8eca132c2880a11862c4895a}{\-Tny\-Type} \hyperlink{struct__Tny_aecebe7f325021541ee357eb7ca5f2de7}{type}
+\item 
+size\-\_\-t \hyperlink{struct__Tny_ab23a0bb54191a8d5e38c6984da5c4c40}{doc\-Size}
+\item 
+size\-\_\-t $\ast$ \hyperlink{struct__Tny_aa8a5f464cc9674c61c82d500772a7b3b}{doc\-Size\-Ptr}
+\item 
+uint32\-\_\-t \hyperlink{struct__Tny_a3e01f2bff5e3d773b3a09d00a229498f}{size}
+\item 
+char $\ast$ \hyperlink{struct__Tny_abaa74403ca9f15a07d3532e116b50550}{key}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct \hyperlink{struct__Tny}{\_Tny} $\ast$ {\bfseries tny}\\
+\>void $\ast$ {\bfseries ptr}\\
+\>uint64\_t {\bfseries num}\\
+\>double {\bfseries flt}\\
+\>char {\bfseries chr}\\
+\} \hyperlink{struct__Tny_a832c5c7cfd9f65289a589dd97bbd02f6}{value}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Tny is the main type. \-Every \-Tny-\/document consists of chained \-Tny-\/elements. 
+
+\subsection{\-Field \-Documentation}
+\hypertarget{struct__Tny_ab23a0bb54191a8d5e38c6984da5c4c40}{\index{\-\_\-\-Tny@{\-\_\-\-Tny}!doc\-Size@{doc\-Size}}
+\index{doc\-Size@{doc\-Size}!_Tny@{\-\_\-\-Tny}}
+\subsubsection[{doc\-Size}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t {\bf \-\_\-\-Tny\-::doc\-Size}}}\label{struct__Tny_ab23a0bb54191a8d5e38c6984da5c4c40}
+\-Contains the size in bytes of the value. \-If this is the root element, it contains the size of the document. \hypertarget{struct__Tny_aa8a5f464cc9674c61c82d500772a7b3b}{\index{\-\_\-\-Tny@{\-\_\-\-Tny}!doc\-Size\-Ptr@{doc\-Size\-Ptr}}
+\index{doc\-Size\-Ptr@{doc\-Size\-Ptr}!_Tny@{\-\_\-\-Tny}}
+\subsubsection[{doc\-Size\-Ptr}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t$\ast$ {\bf \-\_\-\-Tny\-::doc\-Size\-Ptr}}}\label{struct__Tny_aa8a5f464cc9674c61c82d500772a7b3b}
+\-Points to the doc\-Size element of the root element where the document size is stored. \hypertarget{struct__Tny_abaa74403ca9f15a07d3532e116b50550}{\index{\-\_\-\-Tny@{\-\_\-\-Tny}!key@{key}}
+\index{key@{key}!_Tny@{\-\_\-\-Tny}}
+\subsubsection[{key}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf \-\_\-\-Tny\-::key}}}\label{struct__Tny_abaa74403ca9f15a07d3532e116b50550}
+\-Contains the key of the element if the document is of type \-T\-N\-Y\-\_\-\-D\-I\-C\-T. \hypertarget{struct__Tny_afc48d7b4e60d6526269070165ec94169}{\index{\-\_\-\-Tny@{\-\_\-\-Tny}!next@{next}}
+\index{next@{next}!_Tny@{\-\_\-\-Tny}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf \-\_\-\-Tny}$\ast$ {\bf \-\_\-\-Tny\-::next}}}\label{struct__Tny_afc48d7b4e60d6526269070165ec94169}
+\-Points to the next element. \hypertarget{struct__Tny_a8d5f8f0948bf771c7cafa595e8573674}{\index{\-\_\-\-Tny@{\-\_\-\-Tny}!prev@{prev}}
+\index{prev@{prev}!_Tny@{\-\_\-\-Tny}}
+\subsubsection[{prev}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf \-\_\-\-Tny}$\ast$ {\bf \-\_\-\-Tny\-::prev}}}\label{struct__Tny_a8d5f8f0948bf771c7cafa595e8573674}
+\-Points to the previous element. \hypertarget{struct__Tny_acb94256d861006db4e789a8a8733a48c}{\index{\-\_\-\-Tny@{\-\_\-\-Tny}!root@{root}}
+\index{root@{root}!_Tny@{\-\_\-\-Tny}}
+\subsubsection[{root}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf \-\_\-\-Tny}$\ast$ {\bf \-\_\-\-Tny\-::root}}}\label{struct__Tny_acb94256d861006db4e789a8a8733a48c}
+\-Points to the root element of the document. \hypertarget{struct__Tny_a3e01f2bff5e3d773b3a09d00a229498f}{\index{\-\_\-\-Tny@{\-\_\-\-Tny}!size@{size}}
+\index{size@{size}!_Tny@{\-\_\-\-Tny}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t {\bf \-\_\-\-Tny\-::size}}}\label{struct__Tny_a3e01f2bff5e3d773b3a09d00a229498f}
+\-Contains the size of the value. \-If this is the root element, it contains the number of elements stored in the document. \hypertarget{struct__Tny_aecebe7f325021541ee357eb7ca5f2de7}{\index{\-\_\-\-Tny@{\-\_\-\-Tny}!type@{type}}
+\index{type@{type}!_Tny@{\-\_\-\-Tny}}
+\subsubsection[{type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Tny\-Type} {\bf \-\_\-\-Tny\-::type}}}\label{struct__Tny_aecebe7f325021541ee357eb7ca5f2de7}
+\-Contains the type of the element. \-If the element is the root element, it contains the document type. \hypertarget{struct__Tny_a832c5c7cfd9f65289a589dd97bbd02f6}{\index{\-\_\-\-Tny@{\-\_\-\-Tny}!value@{value}}
+\index{value@{value}!_Tny@{\-\_\-\-Tny}}
+\subsubsection[{value}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   {\bf \-\_\-\-Tny\-::value}}}\label{struct__Tny_a832c5c7cfd9f65289a589dd97bbd02f6}
+\-Union to access the value depending on the type. 
+
+\-The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/home/nop/\-Eclipse-\/\-C\-D\-T/workspace/\-Test\-C/src/tny/\hyperlink{tny_8h}{tny.\-h}\end{DoxyCompactItemize}
