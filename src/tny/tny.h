@@ -35,6 +35,8 @@ typedef struct _Tny {
 	struct _Tny *next;
 	struct _Tny *root;
 	TnyType type;
+	size_t docSize;
+	size_t *docSizePtr;
 	uint32_t size;
 	char *key;
 	union {
@@ -66,6 +68,13 @@ typedef struct _Tny {
 Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size);
 
 /*
+ * 	Tny_copy:
+ * 	Performs a deep copy of the "src"-object.
+ * 	"docSizePtr" is only needed for internal use of Tny and can be NULL.
+ */
+Tny* Tny_copy(size_t *docSizePtr, const Tny *src);
+
+/*
 	Tny_remove:
 	Removes an element or a complete document.
 
@@ -88,13 +97,6 @@ Tny* Tny_at(const Tny* tny, size_t index);
 	Works in a TNY_ARRAY and a TNY_DICT.
 */
 Tny* Tny_get(const Tny* tny, const char *key);
-
-/*
-	Tny_calcSize:
-	Validates the document and returns the size needed for serialization.
-	If the validation fails 0 is returned.
-*/
-size_t Tny_calcSize(const Tny *tny);
 
 /*
 	Tny_dumps:

@@ -134,7 +134,9 @@ int serialize_deserialize(Tny *tny)
 			newObj = Tny_loads(dump, size);
 			if (newObj != NULL) {
 				if (Tny_cmp(tny, newObj) == 0) {
-					error = 0;
+					if (*tny->docSizePtr == *newObj->docSizePtr) {
+						error = 0;
+					}
 				}
 			}
 			Tny_free(newObj);
@@ -165,6 +167,19 @@ int main(void)
 						   0x00, 0x4D, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65};
 	int counter = 0;
 	int errors = 0;
+
+	/****************************************************
+	 *  WARNING: BEHAVIOUR CHANGED!                     *
+	 *  ----------------------------------------------  *
+	 *                                                  *
+	 *  Tny now performs a deep copy if you add an      *
+	 *  object to another object. This means that you   *
+	 *  have to free every created object yourself.     *
+	 *                                                  *
+	 *  This is because the size of an object now gets  *
+	 *  calculated while adding new elements to the     *
+	 *  list.                                           *
+	 ****************************************************/
 
 
 	// Checking every datatype in an array.
@@ -260,6 +275,49 @@ int main(void)
 			errors++;
 		}
 	}
+	Tny_free(embedded);
+	Tny_free(root);
+
+	// Updating the value of a dictionary entry
+	root = Tny_add(NULL, TNY_DICT, NULL, NULL, 0);
+	ui32 = 5;
+	root = Tny_add(root, TNY_INT32, "Key", &ui32, 0);
+	ui32 = 10;
+	root = Tny_add(root, TNY_INT32, "Key", &ui32, 0);
+	if (root == NULL || Tny_get(root, "Key")->value.num != ui32) {
+		printf("Updating the value of a dictionary entry failed!\n");
+		errors++;
+	}
+
+	if (serialize_deserialize(root)) {
+		printf("After updating the value of a dictionary entry docSize got corrupted!\n");
+		errors++;
+	}
+	Tny_free(root);
+
+
+	// Further testing of docSize.
+	root = Tny_add(NULL, TNY_ARRAY, NULL, NULL, 0);
+	embedded = Tny_add(NULL, TNY_DICT, NULL, NULL, 0);
+	embedded = Tny_add(embedded, types[0], keys[0], values[0], sizes[0]);
+	root = Tny_add(root, TNY_OBJ, NULL, embedded, 0);
+	tmp = Tny_at(root, 0);
+	tmp = Tny_get(tmp->value.tny, keys[0]);
+	Tny_remove(tmp);
+	if (serialize_deserialize(root)) {
+		printf("tny->docSize got corrupted!\n");
+		errors++;
+	}
+
+	/* If you are using the same variable everywhere, be sure to store the root element
+	   before you are deleting something. */
+	root = root->root;
+	Tny_remove(Tny_at(root, 0));
+	if (serialize_deserialize(root)) {
+		printf("tny->docSize got corrupted!\n");
+		errors++;
+	}
+	Tny_free(embedded);
 	Tny_free(root);
 
 
