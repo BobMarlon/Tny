@@ -34,11 +34,13 @@ int printElement(Tny *tny, int level)
 void printObj(Tny *tny, int level)
 {
 	char spaces[level + 1];
+	Tny *next = NULL;
 	TnyType type = TNY_NULL;
 	int count = 0;
+	int i;
 
 	if (level > 0) {
-		for (int i = 0; i < level; i++) {
+		for (i = 0; i < level; i++) {
 			spaces[i] = '\t';
 		}
 		spaces[level + 1] = '\0';
@@ -46,7 +48,7 @@ void printObj(Tny *tny, int level)
 		spaces[0] = '\0';
 	}
 
-	for (Tny *next = tny->root; next != NULL; next = next->next) {
+	for (next = tny->root; next != NULL; next = next->next) {
 		if (next == tny->root) {
 			type = next->type;
 			continue;
@@ -165,8 +167,9 @@ int main(void)
 	char *keys[] = {"Key1", "Key2", "Key3", "Key4", "Key5", "Key6"};
 	char corruptedObj[] = {0x01, 0x01, 0x00, 0x00, 0x00, 0x04, 0x08, 0x00, 0x00,
 						   0x00, 0x4D, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65};
-	int counter = 0;
 	int errors = 0;
+	uint32_t counter = 0;
+	uint32_t i = 0;
 
 	/****************************************************
 	 *  WARNING: BEHAVIOUR CHANGED!                     *
@@ -182,8 +185,8 @@ int main(void)
 	 ****************************************************/
 
 
-	// Checking every datatype in an array.
-	for (int i = 0; i < 6; i++) {
+	/* Checking every datatype in an array. */
+	for (i = 0; i < 6; i++) {
 		root = Tny_add(NULL, TNY_ARRAY, NULL, NULL, 0);
 		root = Tny_add(root, types[i], NULL, values[i], sizes[i]);
 		if(serialize_deserialize(root)) {
@@ -193,8 +196,8 @@ int main(void)
 		Tny_free(root);
 	}
 
-	// Checking every datatype in a dictionary.
-	for (int i = 0; i < 6; i++) {
+	/* Checking every datatype in a dictionary. */
+	for (i = 0; i < 6; i++) {
 		root = Tny_add(NULL, TNY_DICT, NULL, NULL, 0);
 		root = Tny_add(root, types[i], keys[i], values[i], sizes[i]);
 		if(serialize_deserialize(root)) {
@@ -204,9 +207,9 @@ int main(void)
 		Tny_free(root);
 	}
 
-	// Adding every datatype to an array.
+	/* Adding every datatype to an array. */
 	root = Tny_add(NULL, TNY_ARRAY, NULL, NULL, 0);
-	for (int i = 0; i < 6; i++) {
+	for (i = 0; i < 6; i++) {
 		root = Tny_add(root, types[i], NULL, values[i], sizes[i]);
 	}
 	if (serialize_deserialize(root)) {
@@ -215,9 +218,9 @@ int main(void)
 	}
 	Tny_free(root);
 
-	// Adding every datatype to a dictionary.
+	/* Adding every datatype to a dictionary. */
 	root = Tny_add(NULL, TNY_DICT, NULL, NULL, 0);
-	for (int i = 0; i < 6; i++) {
+	for (i = 0; i < 6; i++) {
 		root = Tny_add(root, types[i], keys[i], values[i], sizes[i]);
 	}
 	if (serialize_deserialize(root)) {
@@ -227,13 +230,13 @@ int main(void)
 	Tny_free(root);
 
 
-	// Adding a dictionary to an array.
+	/* Adding a dictionary to an array. */
 	root = Tny_add(NULL, TNY_ARRAY, NULL, NULL, 0);
-	for (int i = 0; i < 6; i++) {
+	for (i = 0; i < 6; i++) {
 		root = Tny_add(root, types[i], NULL, values[i], sizes[i]);
 	}
 	embedded = Tny_add(NULL, TNY_DICT, NULL, NULL, 0);
-	for (int i = 0; i < 6; i++) {
+	for (i = 0; i < 6; i++) {
 		embedded = Tny_add(embedded, types[i], keys[i], values[i], sizes[i]);
 	}
 	Tny_add(root, TNY_OBJ, NULL, embedded, 0);
@@ -243,21 +246,21 @@ int main(void)
 	}
 
 	if (root != NULL && embedded != NULL) {
-		// Fetching a random element from an array
+		/* Fetching a random element from an array */
 		tmp = Tny_at(root, 2);
 		if (tmp == NULL || tmp->value.num != *(uint64_t*)values[2]) {
 			printf("Fetching element at position 2 failed!\n");
 			errors++;
 		}
 
-		// Fetching a random element from a dictionary
+		/* Fetching a random element from a dictionary */
 		tmp = Tny_get(embedded, "Key3");
 		if (tmp == NULL || tmp->value.num != *(uint64_t*)values[2]) {
 			printf("Fetching element with key 'Key3' failed!\n");
 			errors++;
 		}
 
-		// Remove an element.
+		/* Remove an element. */
 		Tny_remove(Tny_at(root, 2));
 		tmp = Tny_at(root, 2);
 		if (tmp == NULL || tmp->value.chr != *(char*)values[3]) {
@@ -265,7 +268,7 @@ int main(void)
 			errors++;
 		}
 
-		// Adding element after position 2
+		/* Adding element after position 2 */
 		ui32 = 0x12345678;
 		tmp = Tny_at(root, 2);
 		Tny_add(tmp, TNY_INT32, NULL, &ui32, 0);
@@ -278,7 +281,7 @@ int main(void)
 	Tny_free(embedded);
 	Tny_free(root);
 
-	// Updating the value of a dictionary entry
+	/* Updating the value of a dictionary entry */
 	root = Tny_add(NULL, TNY_DICT, NULL, NULL, 0);
 	ui32 = 5;
 	root = Tny_add(root, TNY_INT32, "Key", &ui32, 0);
@@ -296,7 +299,7 @@ int main(void)
 	Tny_free(root);
 
 
-	// Further testing of docSize.
+	/* Further testing of docSize. */
 	root = Tny_add(NULL, TNY_ARRAY, NULL, NULL, 0);
 	embedded = Tny_add(NULL, TNY_DICT, NULL, NULL, 0);
 	embedded = Tny_add(embedded, types[0], keys[0], values[0], sizes[0]);
@@ -321,9 +324,9 @@ int main(void)
 	Tny_free(root);
 
 
-	// Testing the iterator functions.
+	/* Testing the iterator functions. */
 	root = Tny_add(NULL, TNY_ARRAY, NULL, NULL, 0);
-	for (uint32_t i = 0; i < 10; i++) {
+	for (i = 0; i < 10; i++) {
 		root = Tny_add(root, TNY_INT32, NULL, &i, 0);
 	}
 
@@ -345,7 +348,7 @@ int main(void)
 	Tny_free(root);
 
 
-	// Loading a corrupted document containing a corrupted size field.
+	/* Loading a corrupted document containing a corrupted size field. */
 	root = Tny_loads(corruptedObj, sizeof(corruptedObj));
 	if (root == NULL || root->size != 0) {
 		printf("Loading of a corrupted document failed!\n");
