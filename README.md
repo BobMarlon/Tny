@@ -11,6 +11,11 @@ at src/tny/tny.h or the tests located at src/tests.c
 The documentation can be found in [doc/](https://github.com/BobMarlon/Tny/tree/master/doc),
 or read it [online](http://bobmarlon.github.io/Tny/pages/).
 
+### Binary Format
+
+If you want to now how Tny serializes data, take a look at the Documentation at the [tny.h File Reference](http://bobmarlon.github.io/Tny/pages/tny_8h.html) "Detailed Description" section.
+There you find an ABNF specification of the binary format.
+
 ## System Requirements
 
 Tny should run on every plattform with a compatible C99 compiler.
