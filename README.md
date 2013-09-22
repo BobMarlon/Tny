@@ -8,7 +8,8 @@ at src/tny/tny.h or the tests located at src/tests.c
 
 ## Documentation
 
-The documentation can be found in [doc/](https://github.com/BobMarlon/Tny/tree/master/doc).
+The documentation can be found in [doc/](https://github.com/BobMarlon/Tny/tree/master/doc),
+or read it [online](http://bobmarlon.github.io/Tny/pages/).
 
 ## System Requirements
 
