@@ -21,6 +21,7 @@ Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 	enum {CHECK_PRECONDITIONS, ALLOCATE, CHAIN, SET_KEY, SET_VALUE, FAILED};
 	int status = CHECK_PRECONDITIONS;
 	int loop = 1;
+	int isoverwrite = 0;
 	size_t keyLen = 0;
 
 	while (loop) {
@@ -37,7 +38,8 @@ Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 					tny = Tny_get(prev, key);
 					if (tny != NULL) {
 						Tny_freeValue(tny);
-						status = CHAIN;
+						status = SET_VALUE;
+						isoverwrite = 1;
 					}
 				}
 			} else {
@@ -131,17 +133,18 @@ Tny* Tny_add(Tny *prev, TnyType type, char *key, void *value, uint64_t size)
 			loop = 0;
 			break;
 		case FAILED:
-			if (tny != NULL) {
+			if (tny != NULL && !isoverwrite) {
 				free(tny->key);
 				free(tny);
-				tny = NULL;
 			}
+			tny = NULL;
 			loop = 0;
+			isoverwrite = 0;
 			break;
 		}
 	}
 
-	return tny;
+	return isoverwrite ? prev : tny;
 }
 
 Tny* Tny_copy(size_t *docSizePtr, const Tny *src)
@@ -178,6 +181,10 @@ void Tny_addSize(Tny *tny, size_t size)
 	if (tny->docSizePtr != &tny->docSize) {
 		tny->docSize += size;
 	}
+
+	if (tny->docSizePtr != &tny->root->docSize) {
+		tny->root->docSize += size;
+	}
 }
 
 void Tny_subSize(Tny *tny, size_t size)
@@ -185,6 +192,10 @@ void Tny_subSize(Tny *tny, size_t size)
 	*tny->docSizePtr -= size;
 	if (tny->docSizePtr != &tny->docSize) {
 		tny->docSize -= size;
+	}
+
+	if (tny->docSizePtr != &tny->root->docSize) {
+		tny->root->docSize -= size;
 	}
 }
 
