@@ -285,9 +285,12 @@ int main(void)
 	root = Tny_add(NULL, TNY_DICT, NULL, NULL, 0);
 	ui32 = 5;
 	root = Tny_add(root, TNY_INT32, "Key", &ui32, 0);
+	root = Tny_add(root, TNY_INT32, "Key2", &ui32, 0);
 	ui32 = 10;
 	root = Tny_add(root, TNY_INT32, "Key", &ui32, 0);
-	if (root == NULL || Tny_get(root, "Key")->value.num != ui32) {
+	root = Tny_add(root, TNY_INT32, "Key3", &ui32, 0);
+	if (root == NULL || Tny_get(root, "Key")->value.num != ui32
+	|| Tny_get(root, "Key2")->next != Tny_get(root, "Key3")) {
 		printf("Updating the value of a dictionary entry failed!\n");
 		errors++;
 	}
