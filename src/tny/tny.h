@@ -15,7 +15,7 @@
  *	DictionaryElement   =/ Int32Type  Key Int32Value
  *	DictionaryElement   =/ Int64Type  Key Int64Value
  *	DictionaryElement   =/ DoubleType Key DoubleValue
- *	Key                 =  int32 1*(%x01-FF)
+ *	Key                 =  int32 1*(%x01-FF) %x00
  *	; Array element
  *	ArrayElement        =  NullType
  *	ArrayElement        =/ ObjectType 	ObjectValue
