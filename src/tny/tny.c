@@ -544,24 +544,28 @@ void Tny_free(Tny *tny)
 {
 	Tny *tmp = NULL;
 	Tny *next = NULL;
-	TnyType type = tny->root->type;
+	TnyType type = TNY_NULL;
 
-	/* Get the last element.
-	   The linked list has to be free'd from back to front because of tny->docSizePtr
-	   which points to the root element. */
-	for (next = tny; next != NULL; next = next->next) {
-		tny = next;
-	}
+	if (tny != NULL) {
+		type = tny->root->type;
 
-	next = tny;
-	while (next != NULL) {
-		tmp = next->prev;
-		Tny_freeValue(next);
-		if (type == TNY_DICT && next->key != NULL) {
-			Tny_subSize(next, sizeof(uint32_t) + strlen(next->key) + 1);
+		/* Get the last element.
+		   The linked list has to be free'd from back to front because of tny->docSizePtr
+		   which points to the root element. */
+		for (next = tny; next != NULL; next = next->next) {
+			tny = next;
 		}
-		free(next->key);
-		free(next);
-		next = tmp;
+
+		next = tny;
+		while (next != NULL) {
+			tmp = next->prev;
+			Tny_freeValue(next);
+			if (type == TNY_DICT && next->key != NULL) {
+				Tny_subSize(next, sizeof(uint32_t) + strlen(next->key) + 1);
+			}
+			free(next->key);
+			free(next);
+			next = tmp;
+		}
 	}
 }
