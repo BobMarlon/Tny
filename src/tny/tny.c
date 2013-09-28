@@ -465,6 +465,10 @@ Tny* _Tny_loads(char *data, size_t length, size_t *pos, size_t *docSizePtr)
 		}
 	}
 
+	if (tny != NULL) {
+		tny = tny->root;
+	}
+
 	return tny;
 }
 
