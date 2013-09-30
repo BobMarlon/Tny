@@ -379,7 +379,7 @@ Tny* _Tny_loads(char *data, size_t length, size_t *pos, size_t *docSizePtr)
 	uint64_t counter = 0;
 	uint64_t elements = 0;
 
-	while ((*pos) < length) {
+	while ((*pos) < length && (counter == 0 || counter < elements)) {
 		type = data[(*pos)++];
 		if (tny == NULL) {
 			if (type == TNY_ARRAY || type == TNY_DICT) {
@@ -396,7 +396,12 @@ Tny* _Tny_loads(char *data, size_t length, size_t *pos, size_t *docSizePtr)
 				} else {
 					break;
 				}
-				continue;
+
+				if (elements == 0) {
+					break;
+				} else {
+					continue;
+				}
 			} else {
 				break;
 			}
@@ -458,11 +463,7 @@ Tny* _Tny_loads(char *data, size_t length, size_t *pos, size_t *docSizePtr)
 			*pos += sizeof(double);
 			tny = Tny_add(tny, type, key, &flt, 0);
 		}
-
 		counter++;
-		if (counter >= elements) {
-			break;
-		}
 	}
 
 	if (tny != NULL) {

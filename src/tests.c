@@ -141,11 +141,13 @@ int serialize_deserialize(Tny *tny)
 					}
 				}
 			}
+			if (error) {
+				printObj(newObj, 0);
+			}
 			Tny_free(newObj);
 		}
 		free(dump);
 	}
-
 
 	return error;
 }
@@ -338,18 +340,30 @@ int main(void)
 	while (Tny_hasNext(root)) {
 		root = Tny_next(root);
 		if (root->value.num != counter) {
-			printf("Iterator Test (1) failed!\n");
+			printf("Iterator test (1) failed!\n");
 			errors++;
 			break;
 		}
 		counter++;
 	}
 	if (counter != root->root->size) {
-		printf("Iterator Test (2) failed!\n");
+		printf("Iterator test (2) failed!\n");
 		errors++;
 	}
 	Tny_free(root);
 
+
+	/* Checking if empty documents are getting serialized properly. */
+	root = Tny_add(NULL, TNY_ARRAY, NULL, NULL, 0);
+	for (i = 0; i < 5; i++) {
+		embedded = Tny_add(NULL, TNY_ARRAY, NULL, NULL, 0);
+		root = Tny_add(root, TNY_OBJ, NULL, embedded, 0);
+		Tny_free(embedded);
+	}
+	if (serialize_deserialize(root)) {
+		printf("Empty documents test failed!\n");
+		errors++;
+	}
 
 	/* Loading a corrupted document containing a corrupted size field. */
 	root = Tny_loads(corruptedObj, sizeof(corruptedObj));
