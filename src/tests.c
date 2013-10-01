@@ -364,6 +364,7 @@ int main(void)
 		printf("Empty documents test failed!\n");
 		errors++;
 	}
+	Tny_free(root);
 
 	/* Loading a corrupted document containing a corrupted size field. */
 	root = Tny_loads(corruptedObj, sizeof(corruptedObj));
