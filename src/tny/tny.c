@@ -9,8 +9,8 @@ static void Tny_subSize(Tny *tny, size_t size);
 static size_t Tny_valueSize(TnyType type, size_t size);
 static size_t _Tny_dumps(const Tny *tny, char *data, size_t pos);
 static Tny* _Tny_loads(char *data, size_t length, size_t *pos, size_t *docSizePtr);
-static uint32_t* Tny_swapBytes32(uint32_t *dest, const uint32_t *src);
-static uint64_t* Tny_swapBytes64(uint64_t *dest, const uint64_t *src);
+static uint32_t* Tny_swapBytes32(uint32_t *dest, const char *src);
+static uint64_t* Tny_swapBytes64(uint64_t *dest, const char *src);
 static void Tny_freeValue(Tny *tny);
 
 union tnyHostOrder tnyHostOrder = { { 0, 1, 2, 3 } };
@@ -301,7 +301,7 @@ size_t _Tny_dumps(const Tny *tny, char *data, size_t pos)
 
 		/* Add the number of elements if this is the root element. */
 		if (next->type == TNY_ARRAY || next->type == TNY_DICT) {
-			Tny_swapBytes32((uint32_t*)(data + pos), &next->size);
+			Tny_swapBytes32((uint32_t*)(data + pos), (const char*)&next->size);
 			pos += sizeof(uint32_t);
 			continue;
 		}
@@ -309,7 +309,7 @@ size_t _Tny_dumps(const Tny *tny, char *data, size_t pos)
 		/* Add the key if this is a dictionary */
 		if (next->root->type == TNY_DICT) {
 			size = strlen(next->key) + 1;
-			Tny_swapBytes32((uint32_t*)(data + pos), &size);
+			Tny_swapBytes32((uint32_t*)(data + pos), (const char*)&size);
 			pos += sizeof(uint32_t);
 			memcpy((data + pos), next->key, size);
 			pos += size;
@@ -324,20 +324,20 @@ size_t _Tny_dumps(const Tny *tny, char *data, size_t pos)
 				break;
 			}
 		} else if (next->type == TNY_BIN) {
-			Tny_swapBytes32((uint32_t*)(data + pos), &next->size);
+			Tny_swapBytes32((uint32_t*)(data + pos), (const char*)&next->size);
 			pos += sizeof(uint32_t);
 			memcpy((data + pos), next->value.ptr, next->size);
 			pos += next->size;
 		} else if (next->type == TNY_CHAR) {
 			data[pos++] = next->value.chr;
 		} else if (next->type == TNY_INT32) {
-			Tny_swapBytes32((uint32_t*)(data + pos), (uint32_t*)&next->value.num);
+			Tny_swapBytes32((uint32_t*)(data + pos), (const char*)&next->value.num);
 			pos += sizeof(uint32_t);
 		} else if (next->type == TNY_INT64) {
-			Tny_swapBytes64((uint64_t*)(data + pos), &next->value.num);
+			Tny_swapBytes64((uint64_t*)(data + pos), (const char*)&next->value.num);
 			pos += sizeof(uint64_t);
 		} else if (next->type == TNY_DOUBLE) {
-			Tny_swapBytes64((uint64_t*)(data + pos), &next->value.num);
+			Tny_swapBytes64((uint64_t*)(data + pos), (const char*)&next->value.num);
 			pos += sizeof(double);
 		}
 	}
@@ -384,7 +384,7 @@ Tny* _Tny_loads(char *data, size_t length, size_t *pos, size_t *docSizePtr)
 		if (tny == NULL) {
 			if (type == TNY_ARRAY || type == TNY_DICT) {
 				HASNEXTDATA(sizeof(uint32_t));
-				Tny_swapBytes32(&size, (uint32_t*)(data + (*pos)));
+				Tny_swapBytes32(&size, (const char*)(data + (*pos)));
 				*pos += sizeof(uint32_t);
 				elements = size;
 				tny = Tny_add(NULL, type, NULL, NULL, size);
@@ -409,7 +409,7 @@ Tny* _Tny_loads(char *data, size_t length, size_t *pos, size_t *docSizePtr)
 
 		if (tny->root->type == TNY_DICT) {
 			HASNEXTDATA(sizeof(uint32_t));
-			Tny_swapBytes32(&size, (uint32_t*)(data + (*pos)));
+			Tny_swapBytes32(&size, (const char*)(data + (*pos)));
 			*pos += sizeof(uint32_t);
 			HASNEXTDATA(size);
 			if (data[(*pos) + size - 1] == '\0') {
@@ -438,7 +438,7 @@ Tny* _Tny_loads(char *data, size_t length, size_t *pos, size_t *docSizePtr)
 	 		}
 		} else if (type == TNY_BIN) {
 			HASNEXTDATA(sizeof(uint32_t));
-			Tny_swapBytes32(&size, (uint32_t*)(data + (*pos)));
+			Tny_swapBytes32(&size, (const char*)(data + (*pos)));
 			*pos += sizeof(uint32_t);
 			HASNEXTDATA(size);
 			tny = Tny_add(tny, type, key, (data + *pos), size);
@@ -449,17 +449,17 @@ Tny* _Tny_loads(char *data, size_t length, size_t *pos, size_t *docSizePtr)
 			(*pos)++;
 		} else if (type == TNY_INT32) {
 			HASNEXTDATA(sizeof(uint32_t));
-			Tny_swapBytes32(&i32, (uint32_t*)(data + (*pos)));
+			Tny_swapBytes32(&i32, (const char*)(data + (*pos)));
 			*pos += sizeof(uint32_t);
 			tny = Tny_add(tny, type, key, &i32, 0);
 		} else if (type == TNY_INT64) {
 			HASNEXTDATA(sizeof(uint64_t));
-			Tny_swapBytes64(&i64, (uint64_t*)(data + (*pos)));
+			Tny_swapBytes64(&i64, (data + (*pos)));
 			*pos += sizeof(uint64_t);
 			tny = Tny_add(tny, type, key, &i64, 0);
 		} else if (type == TNY_DOUBLE) {
 			HASNEXTDATA(sizeof(double));
-			Tny_swapBytes64((uint64_t*)&flt, (uint64_t*)(data + (*pos)));
+			Tny_swapBytes64((uint64_t*)&flt, (data + (*pos)));
 			*pos += sizeof(double);
 			tny = Tny_add(tny, type, key, &flt, 0);
 		}
@@ -480,7 +480,7 @@ Tny* Tny_loads(void *data, size_t length)
 	return _Tny_loads(data, length, &pos, NULL);
 }
 
-static uint32_t* Tny_swapBytes32(uint32_t *dest, const uint32_t *src)
+static uint32_t* Tny_swapBytes32(uint32_t *dest, const char *src)
 {
 	union {
 		uint32_t num;
@@ -489,7 +489,7 @@ static uint32_t* Tny_swapBytes32(uint32_t *dest, const uint32_t *src)
 	char c;
 
 	if (ORDER_LITTLE_ENDIAN != HOST_ORDER) {
-		bytes.num = *src;
+    memcpy(&bytes.num, src, sizeof(uint32_t));
 		c = bytes.c[0]; bytes.c[0] = bytes.c[3]; bytes.c[3] = c;
 		c = bytes.c[1]; bytes.c[1] = bytes.c[2]; bytes.c[2] = c;
 		memcpy(dest, &bytes.num, sizeof(uint32_t));
@@ -500,7 +500,7 @@ static uint32_t* Tny_swapBytes32(uint32_t *dest, const uint32_t *src)
 	return dest;
 }
 
-static uint64_t* Tny_swapBytes64(uint64_t *dest, const uint64_t *src)
+static uint64_t* Tny_swapBytes64(uint64_t *dest, const char *src)
 {
 	union {
 		uint64_t num;
@@ -509,7 +509,7 @@ static uint64_t* Tny_swapBytes64(uint64_t *dest, const uint64_t *src)
 	char c;
 
 	if (ORDER_LITTLE_ENDIAN != HOST_ORDER) {
-		bytes.num = *src;
+    memcpy(&bytes.num, src, sizeof(uint64_t));
 		c = bytes.c[0]; bytes.c[0] = bytes.c[7]; bytes.c[7] = c;
 		c = bytes.c[1]; bytes.c[1] = bytes.c[6]; bytes.c[6] = c;
 		c = bytes.c[2]; bytes.c[2] = bytes.c[5]; bytes.c[5] = c;
