@@ -489,7 +489,7 @@ static uint32_t* Tny_swapBytes32(uint32_t *dest, const char *src)
 	char c;
 
 	if (ORDER_LITTLE_ENDIAN != HOST_ORDER) {
-    memcpy(&bytes.num, src, sizeof(uint32_t));
+		memcpy(&bytes.num, src, sizeof(uint32_t));
 		c = bytes.c[0]; bytes.c[0] = bytes.c[3]; bytes.c[3] = c;
 		c = bytes.c[1]; bytes.c[1] = bytes.c[2]; bytes.c[2] = c;
 		memcpy(dest, &bytes.num, sizeof(uint32_t));
@@ -509,7 +509,7 @@ static uint64_t* Tny_swapBytes64(uint64_t *dest, const char *src)
 	char c;
 
 	if (ORDER_LITTLE_ENDIAN != HOST_ORDER) {
-    memcpy(&bytes.num, src, sizeof(uint64_t));
+		memcpy(&bytes.num, src, sizeof(uint64_t));
 		c = bytes.c[0]; bytes.c[0] = bytes.c[7]; bytes.c[7] = c;
 		c = bytes.c[1]; bytes.c[1] = bytes.c[6]; bytes.c[6] = c;
 		c = bytes.c[2]; bytes.c[2] = bytes.c[5]; bytes.c[5] = c;
